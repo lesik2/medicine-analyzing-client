@@ -6,5 +6,12 @@ export const getMaxLengthErrorMessage = (name: string, limitValue: number) =>
 
 export enum AppErrors {
   wrongSignInTitle = 'Ошибка авторизации.',
-  wrongSignInMessage = 'Не удалось войти. Проверьте, правильно ли вы ввели свои данные.',
+  wrongSignUpTitle = 'Ошибка регистрации.',
+  samePasswords = 'Пароли должны совпадать',
+  lowercasePassword = 'Пароль должен содержать хотя бы одну строчную букву',
+  uppercasePassword = 'Пароль должен содержать хотя бы одну заглавную букву',
+  specialCharactersPassword = 'Пароль должен содержать хотя бы один специальный символ',
+  incorrectEmail = 'Некорректный формат E-mail',
+  incorrectNameFormat ='Имя должно содержать только буквы алфавита',
+  incorrectSurnameFormat ='Фамилия должна содержать только буквы алфавита',
 }

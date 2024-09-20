@@ -2,12 +2,12 @@ export const config = {
   title: <>Войдите в Талон-Онлайн</>,
   emailField: {
     name: 'email',
-    label: 'Логин',
+    label: 'E-mail',
   },
   passwordField: {
     name: 'password',
     label: 'Пароль',
   },
   button: 'Войти',
-  link: 'Зарегистрироваться'
+  link: 'Зарегистрироваться',
 } as const;

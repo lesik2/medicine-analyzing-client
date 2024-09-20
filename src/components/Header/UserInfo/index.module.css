@@ -1,0 +1,27 @@
+.userInfoWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 var(--gap-24);
+    border-left: 1px solid var(--action-button-secondary-hover-color);
+    border-right: 1px solid var(--action-button-secondary-hover-color);
+    gap: var(--gap-20);
+}
+
+.userInfoTextWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--gap-2);
+}
+
+.userButton {
+    min-height: unset;
+    width: fit-content;
+}
+  
+  .userIcon {
+    margin-bottom: 0;
+  }
+  

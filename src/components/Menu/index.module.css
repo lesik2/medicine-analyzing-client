@@ -1,0 +1,16 @@
+.menuWrapper{
+    height: 100%;
+    width: 262px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--z-index-menu);
+    padding-top: var(--gap-72);
+    background-color: var(--color-dark-base-bg-primary-inverted);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: var(--shadow-m);
+}
+

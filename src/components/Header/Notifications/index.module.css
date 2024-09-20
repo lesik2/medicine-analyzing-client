@@ -1,0 +1,28 @@
+.notificationsWrapper{
+    padding: 0 var(--gap-20);
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--action-button-secondary-hover-color);
+}
+
+.iconWrapper{
+    position: relative;
+    width: var(--gap-32);
+    height: var(--gap-32);
+    background-color: var(--color-dark-base-bg-primary-inverted);
+    padding: 0;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+
+}
+
+.indicator{
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    width: var(--gap-8);
+    height: var(--gap-8);
+    border-radius: 100%;
+    background-color: var(--color-light-accent-primary);
+}

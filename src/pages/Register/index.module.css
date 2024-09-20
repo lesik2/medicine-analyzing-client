@@ -28,3 +28,19 @@
 .sumbitButton {
   margin: var(--gap-32) 0;
 }
+
+.modalIcon{
+  color: var(--color-light-status-positive);
+}
+.modalIconWrapper{
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.modalContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--gap-16);
+}

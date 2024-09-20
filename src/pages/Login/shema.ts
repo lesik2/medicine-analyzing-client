@@ -7,7 +7,7 @@ const MAX_LENGTH = 64;
 export const schema = yup.object({
   email: yup
     .string()
-    .min(MIN_LENGTH, getMinLengthErrorMessage('Логин', MIN_LENGTH))
+    .min(MIN_LENGTH, getMinLengthErrorMessage('E-mail', MIN_LENGTH))
     .required(),
   password: yup
     .string()
