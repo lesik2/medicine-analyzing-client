@@ -2,7 +2,7 @@
   width: 100%;
   height: var(--gap-72);
   background-color: var(--color-dark-base-bg-primary-inverted);
-  z-index: var(--z-index-max);
+  z-index: var(--z-index-header);
   top:0;
   left: 0;
   position: fixed;

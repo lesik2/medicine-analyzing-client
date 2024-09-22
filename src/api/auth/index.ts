@@ -16,3 +16,8 @@ export const logoutConfig: ApiGetConfig ={
   keys: ['logout'],
   url: `${BASE_URL}/logout`,
 }
+
+export const resendConfirmationEmail: ApiSendConfig = {
+  url: `${BASE_URL}/resend`,
+  method:'post'
+}

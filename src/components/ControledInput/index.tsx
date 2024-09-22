@@ -11,6 +11,7 @@ type Props<T extends FieldValues> = {
   label: string;
   clear?: boolean;
   methods: ReturnType<typeof useForm<T>>;
+  isReset?: boolean,
 } & React.ComponentProps<typeof Input>;
 
 export const ControlledInput = <T extends FieldValues>({
@@ -21,6 +22,7 @@ export const ControlledInput = <T extends FieldValues>({
   size,
   type = 'text',
   clear = false,
+  isReset,
   ...props
 }: Props<T>) => {
   const {
@@ -28,6 +30,7 @@ export const ControlledInput = <T extends FieldValues>({
     trigger,
     getValues,
     register,
+    reset,
     formState: { errors },
   } = methods;
 
@@ -43,6 +46,12 @@ export const ControlledInput = <T extends FieldValues>({
 
     if (currentValues) trigger(name);
   }, [fieldValue, getValues, name, setValue, trigger]);
+
+  useEffect(()=>{
+    if(isReset){
+      setFieldValue(''as PathValue<T, typeof name>);
+    }
+  },[isReset,reset])
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(e.target.value as PathValue<T, typeof name>);

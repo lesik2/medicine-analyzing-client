@@ -1,5 +1,5 @@
 .wrapper {
-  padding-top: var(--gap-96);
+  padding-top: var(--gap-72);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -10,10 +10,11 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  width: 456px;
 }
 
 .formWrapper {
-  width: 456px;
+  width: 100%;
 }
 
 .title {
@@ -27,4 +28,10 @@
 
 .sumbitButton {
   margin: var(--gap-32) 0;
+}
+.linksWrapper{
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

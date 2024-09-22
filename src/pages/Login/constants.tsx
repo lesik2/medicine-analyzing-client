@@ -9,5 +9,6 @@ export const config = {
     label: 'Пароль',
   },
   button: 'Войти',
-  link: 'Зарегистрироваться',
+  linkRegister: 'Зарегистрироваться',
+  linkForgotPassword: 'Забыли пароль?',
 } as const;

@@ -26,7 +26,7 @@ export const Header = () => {
           </div>
 
         ) : (
-          <Button size={48} view="accent" href={Routes.LOGIN}>
+          <Button size={40} view="accent" href={Routes.LOGIN}>
             {config.link}
           </Button>
         )}

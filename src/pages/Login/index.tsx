@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { Link } from '@alfalab/core-components/link';
 import { useSetAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
 import { config } from './constants';
 import { schema } from './shema';
@@ -20,13 +20,22 @@ import { AuthUser } from '@/types/auth';
 import { authUserAtom } from '@/atoms/auth';
 import { StorageKeys } from '@/constants/localStorage';
 
+
 type Inputs = {
   email: string;
   password: string;
 };
 
+interface LoginProps{
+  email: string;
+  password: string;
+  token?: string;
+}
+
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.search? location.search.slice(1): undefined
   const setAuthUser = useSetAtom(authUserAtom);
   const methods = useForm({ resolver: yupResolver(schema) });
   const {
@@ -39,7 +48,7 @@ export const LoginPage = () => {
     mutate,
     error,
     data: response,
-  } = useApiSend<Inputs, AuthUser>({
+  } = useApiSend<LoginProps, AuthUser>({
     ...loginConfig,
     error: () => {
       setShowNotification(true);
@@ -51,7 +60,8 @@ export const LoginPage = () => {
   };
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
-    mutate(data);
+    
+    mutate({...data,token});
     setShowNotification(false);
   };
 
@@ -69,6 +79,7 @@ export const LoginPage = () => {
       setError('root', { message: error.message });
     }
   }, [error, setError]);
+
 
   return (
     <div className={styles.wrapper}>
@@ -112,11 +123,19 @@ export const LoginPage = () => {
             {config.button}
           </Button>
         </form>
-        <Link href={Routes.REGISTER}>
-          <Typography.Text tag="span" color="primary" view="primary-medium">
-            {config.link}
-          </Typography.Text>
-        </Link>
+        <div className={styles.linksWrapper}>
+          <Link href={Routes.REGISTER}>
+            <Typography.Text tag="span" color="primary" view="primary-medium">
+              {config.linkRegister}
+            </Typography.Text>
+          </Link>
+          <Link href={Routes.REGISTER}>
+            <Typography.Text tag="span" color="primary" view="primary-medium">
+              {config.linkForgotPassword}
+            </Typography.Text>
+          </Link>
+        </div>
+
         <AppNotification
           onClose={handleCloseNotification}
           visible={showNotification}

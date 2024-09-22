@@ -24,7 +24,8 @@ export const config = {
   link: 'Уже есть аккаунт?',
   modal:{
     title: 'Успешная регистрация!',
+    getMessage: (email: string)=>`Мы отправили на почту ${email} письмо для подтверждения аккаунта.`,
     primaryBtn: 'Войти',
-    secondaryBtn: 'Отмена'
+    secondaryBtn: 'Отправить еще раз'
   }
 } as const;

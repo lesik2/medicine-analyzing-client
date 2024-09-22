@@ -44,8 +44,8 @@
 
 :root {
   --z-index-max: 999999;
-  --z-index-menu: 100;
-  --z-index-modal: 150;
+  --z-index-menu: 90;
+  --z-index-header: 100;
   --z-index-error: 200;
   --z-index-loading-screen: 300;
 }

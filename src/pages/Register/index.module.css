@@ -1,5 +1,5 @@
 .wrapper {
-  padding-top: var(--gap-96);
+  padding-top: var(--gap-72);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -40,7 +40,9 @@
 }
 .modalContent{
   display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--gap-16);
+  text-align: center;
 }
