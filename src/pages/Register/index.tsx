@@ -17,7 +17,7 @@ import { AppErrors } from '@/constants/errors';
 import { Routes } from '@/constants/routes';
 import { useApiSend } from '@/hooks/useApiSend';
 import { AuthUser } from '@/types/auth';
-import { registerConfig, resendConfirmationEmail } from '@/api/auth';
+import { registerConfig, resendConfirmationEmailConfig } from '@/api/auth';
 import { useModal } from '@/hooks/useModal';
 
 type Inputs = {
@@ -31,6 +31,7 @@ type Inputs = {
 export const RegisterPage = () => {
   const methods = useForm({ resolver: yupResolver(schema) });
   const {
+    reset,
     setError,
     formState: { isValid, isSubmitting },
   } = methods;
@@ -51,9 +52,9 @@ export const RegisterPage = () => {
 
   const { mutate:resendMutation,isPending  } = useApiSend<
     {email:string},
-    object
+    void
   >({
-    ...resendConfirmationEmail,
+    ...resendConfirmationEmailConfig,
   });
 
   const handleCloseNotification = () => {
@@ -72,14 +73,13 @@ export const RegisterPage = () => {
     if (error) {
       setError('root', { message: error.message });
     }
-  }, [error, setError]);
-
-  useEffect(() => {
     if(isSuccess){
       handleOpen();
       setIsReset(true);
+      reset()
     }
-  }, [isSuccess, handleOpen]);
+  }, [error, setError,isSuccess,handleOpen,reset]);
+
 
   const handleResendClick = useCallback(()=>{
     resendMutation({email});

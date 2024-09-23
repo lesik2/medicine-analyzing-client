@@ -1,5 +1,5 @@
 import styles from './index.module.css'
-import { Bell } from '@/assets/BellIcon'
+import { Bell } from '@/assets/icons/BellIcon'
 
 
 export const Notifications = ()=>{

@@ -15,7 +15,7 @@ export const Header = () => {
     <header className={styles.header}>
       <div className={styles.headerWrapper}>
         <Link href={Routes.HOME}>
-          <Typography.Title tag="h1" color="accent" view="medium">
+          <Typography.Title tag="h2" color="accent" view="medium">
             {config.title}
           </Typography.Title>
         </Link>

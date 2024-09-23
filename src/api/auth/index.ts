@@ -17,7 +17,17 @@ export const logoutConfig: ApiGetConfig ={
   url: `${BASE_URL}/logout`,
 }
 
-export const resendConfirmationEmail: ApiSendConfig = {
+export const resendConfirmationEmailConfig: ApiSendConfig = {
   url: `${BASE_URL}/resend`,
+  method:'post'
+}
+
+export const resetPasswordEmailConfig: ApiSendConfig = {
+  url: `${BASE_URL}/recall`,
+  method:'post'
+}
+
+export const restorePasswordConfig: ApiSendConfig = {
+  url: `${BASE_URL}/restore`,
   method:'post'
 }

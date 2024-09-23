@@ -30,7 +30,6 @@ export const ControlledInput = <T extends FieldValues>({
     trigger,
     getValues,
     register,
-    reset,
     formState: { errors },
   } = methods;
 
@@ -51,7 +50,7 @@ export const ControlledInput = <T extends FieldValues>({
     if(isReset){
       setFieldValue(''as PathValue<T, typeof name>);
     }
-  },[isReset,reset])
+  },[isReset])
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(e.target.value as PathValue<T, typeof name>);

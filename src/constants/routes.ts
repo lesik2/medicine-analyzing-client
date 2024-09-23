@@ -5,4 +5,6 @@ export enum Routes {
   NOT_FOUND = '*',
   TICKETS = '/tickets',
   PROFILE='/profile',
+  SEND_MAIL='/recall',
+  NEW_PASSWORD = '/recall/replace',
 }

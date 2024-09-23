@@ -7,6 +7,7 @@ const MAX_LENGTH = 64;
 export const schema = yup.object({
   email: yup
     .string()
+    .email(AppErrors.incorrectEmail)
     .min(MIN_LENGTH, getMinLengthErrorMessage('E-mail', MIN_LENGTH))
     .required(AppErrors.requiredField),
   password: yup

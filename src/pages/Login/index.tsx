@@ -9,7 +9,7 @@ import { useSetAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
 import { config } from './constants';
-import { schema } from './shema';
+import { schema } from './sсhema';
 import { ControlledInput } from '@/components/ControledInput';
 import { AppNotification } from '@/components/AppNotification';
 import { AppErrors } from '@/constants/errors';
@@ -35,7 +35,8 @@ interface LoginProps{
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = location.search? location.search.slice(1): undefined
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token') || undefined;
   const setAuthUser = useSetAtom(authUserAtom);
   const methods = useForm({ resolver: yupResolver(schema) });
   const {
@@ -129,7 +130,7 @@ export const LoginPage = () => {
               {config.linkRegister}
             </Typography.Text>
           </Link>
-          <Link href={Routes.REGISTER}>
+          <Link href={Routes.SEND_MAIL}>
             <Typography.Text tag="span" color="primary" view="primary-medium">
               {config.linkForgotPassword}
             </Typography.Text>

@@ -21,6 +21,12 @@ const ProfilePage = lazy(async () => ({
 const TicketsPage = lazy(async () => ({
   default: (await import('@/pages/Tickets')).TicketsPage,
 }));
+const SendMailPage = lazy(async () => ({
+  default: (await import('@/pages/ResetPassword/SendMail')).SendMailPage,
+}));
+const NewPasswordPage = lazy(async () => ({
+  default: (await import('@/pages/ResetPassword/NewPassword')).NewPasswordPage,
+}));
 const NotFoundPage = lazy(async () => ({
   default: (await import('@/pages/Not-found')).NotFound,
 }));
@@ -32,6 +38,8 @@ export const AppRoutes = () => {
         <Route index element={<HomePage />} />
         <Route path={Routes.LOGIN} element={<LoginPage />} />
         <Route path={Routes.REGISTER} element={<RegisterPage />} />
+        <Route path={Routes.SEND_MAIL} element={<SendMailPage />} />
+        <Route path={Routes.NEW_PASSWORD} element={<NewPasswordPage />} />
         <Route
           element={
             <ProtectedRoute>
