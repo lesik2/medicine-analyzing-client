@@ -6,7 +6,10 @@ import axiosConfig from '@/http';
 interface UseApiGetProps<T> {
   keys: string[];
   url: string;
-  options?: Omit<UseQueryOptions<T, AxiosError<ServerResponseError>>, 'queryKey'>;
+  options?: Omit<
+    UseQueryOptions<T, AxiosError<ServerResponseError>>,
+    'queryKey'
+  >;
 }
 
 export const useApiGet = <T>({ keys, url, options }: UseApiGetProps<T>) => {

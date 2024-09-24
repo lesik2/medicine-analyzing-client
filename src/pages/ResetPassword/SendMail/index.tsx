@@ -1,49 +1,44 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Typography } from "@alfalab/core-components/typography";
-import { Button } from "@alfalab/core-components/button";
-import { useCallback, useEffect, useState } from "react";
-import { schema } from "./sсhema";
-import styles from './index.module.css'
-import { config } from "./constants";
-import { ControlledInput } from "@/components/ControledInput";
-import { AppNotification } from "@/components/AppNotification";
-import { AppErrors } from "@/constants/errors";
-import { useApiSend } from "@/hooks/useApiSend";
-import { resetPasswordEmailConfig } from "@/api/auth";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Typography } from '@alfalab/core-components/typography';
+import { Button } from '@alfalab/core-components/button';
+import { useCallback, useEffect, useState } from 'react';
+import { schema } from './sсhema';
+import styles from './index.module.css';
+import { config } from './constants';
+import { ControlledInput } from '@/components/ControledInput';
+import { AppNotification } from '@/components/AppNotification';
+import { AppErrors } from '@/constants/errors';
+import { useApiSend } from '@/hooks/useApiSend';
+import { resetPasswordEmailConfig } from '@/api/auth';
 
 type Inputs = {
-    email: string;
+  email: string;
 };
 
-export const SendMailPage = ()=>{
+export const SendMailPage = () => {
   const [showNotification, setShowNotification] = useState(false);
   const methods = useForm({ resolver: yupResolver(schema) });
-  const [isReset, setIsReset] = useState(false)
+  const [isReset, setIsReset] = useState(false);
   const {
     setError,
     reset,
     formState: { isValid, isSubmitting },
   } = methods;
 
-  const {
-    mutate,
-    error,
-    isSuccess
-  } = useApiSend< {email:string},void>({
+  const { mutate, error, isSuccess } = useApiSend<{ email: string }, void>({
     ...resetPasswordEmailConfig,
     error: () => {
       setShowNotification(true);
     },
-    success: ()=>{
+    success: () => {
       setShowNotification(true);
-    }
+    },
   });
 
-
-  const handleCloseNotification = useCallback(()=>{
-    setShowNotification(false)
-  },[])
+  const handleCloseNotification = useCallback(() => {
+    setShowNotification(false);
+  }, []);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     mutate(data);
@@ -51,46 +46,41 @@ export const SendMailPage = ()=>{
     setIsReset(false);
   };
 
-
   useEffect(() => {
     if (error) {
       setError('root', { message: error.message });
     }
-    if(isSuccess){
+    if (isSuccess) {
       reset();
-      setIsReset(true)
+      setIsReset(true);
     }
-  }, [error, setError,isSuccess,reset]);
+  }, [error, setError, isSuccess, reset]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperContent}>
-      <Typography.Title
-            tag="h2"
-            color="primary"
-            view="medium"
-            className={styles.title}
-          >
-            {config.title}
-          </Typography.Title>
-          <Typography.Text
-            tag="p"
-            color="primary"
-            view="primary-large"
-          >
-            {config.text}
-          </Typography.Text>
+        <Typography.Title
+          tag="h2"
+          color="primary"
+          view="medium"
+          className={styles.title}
+        >
+          {config.title}
+        </Typography.Title>
+        <Typography.Text tag="p" color="primary" view="primary-large">
+          {config.text}
+        </Typography.Text>
         <form
           onSubmit={methods.handleSubmit(handleSubmit)}
           className={styles.formWrapper}
         >
-            <ControlledInput
-              {...config.emailField}
-              methods={methods}
-              size="l"
-              required={true}
-              isReset={isReset}
-            />
+          <ControlledInput
+            {...config.emailField}
+            methods={methods}
+            size="l"
+            required={true}
+            isReset={isReset}
+          />
 
           <Button
             block={true}
@@ -106,12 +96,14 @@ export const SendMailPage = ()=>{
         <AppNotification
           onClose={handleCloseNotification}
           visible={showNotification}
-          badge={isSuccess? 'positive-checkmark': 'negative-cross'}
-          title={isSuccess?config.successSendingTitle :AppErrors.wrongInput}
+          badge={isSuccess ? 'positive-checkmark' : 'negative-cross'}
+          title={isSuccess ? config.successSendingTitle : AppErrors.wrongInput}
         >
-          {isSuccess? config.successSendingMessage  :error?.response?.data.message}
+          {isSuccess
+            ? config.successSendingMessage
+            : error?.response?.data.message}
         </AppNotification>
       </div>
     </div>
-  )
-}
+  );
+};

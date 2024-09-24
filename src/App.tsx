@@ -5,7 +5,5 @@ import { useAuth } from './hooks/useAuth';
 
 export function App() {
   useAuth();
-  return (
-      <AppRoutes />
-  );
+  return <AppRoutes />;
 }

@@ -8,10 +8,10 @@ export function ProtectedRoute({
   children,
 }: ProtectedRouteProps) {
   const location = useLocation();
-  const authUser = localStorage.getItem(StorageKeys.authUser)
-  
+  const authUser = localStorage.getItem(StorageKeys.authUser);
+
   if (!authUser) {
-    return  <Navigate to={redirectPath} replace state={{ from: location }} />;
+    return <Navigate to={redirectPath} replace state={{ from: location }} />;
   }
 
   return children as JSX.Element;

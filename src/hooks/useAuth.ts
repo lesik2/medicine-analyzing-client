@@ -1,4 +1,4 @@
-import { useEffect, } from 'react';
+import { useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 
 import axios from 'axios';
@@ -11,7 +11,7 @@ export const useAuth = () => {
   const setAuthUser = useSetAtom(authUserAtom);
 
   useEffect(() => {
-    const checkAuth= async ()=>{
+    const checkAuth = async () => {
       const refreshToken = localStorage.getItem(StorageKeys.refreshToken);
       if (refreshToken) {
         try {
@@ -27,15 +27,13 @@ export const useAuth = () => {
           const newAccessToken = response.data.accessToken;
           localStorage.setItem(StorageKeys.accessToken, newAccessToken);
           setAuthUser(response.data);
-
         } catch (error: unknown) {
           if (error instanceof Error) {
             console.error(error);
           }
         }
-    }
-    }
+      }
+    };
     checkAuth();
-
   }, [setAuthUser]);
 };

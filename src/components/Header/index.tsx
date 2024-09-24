@@ -24,7 +24,6 @@ export const Header = () => {
             <UserInfo />
             <Notifications />
           </div>
-
         ) : (
           <Button size={40} view="accent" href={Routes.LOGIN}>
             {config.link}

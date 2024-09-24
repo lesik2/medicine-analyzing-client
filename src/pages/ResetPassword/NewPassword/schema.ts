@@ -5,9 +5,8 @@ import { Regex } from '@/constants/regex';
 const MIN_LENGTH = 6;
 const MAX_LENGTH = 64;
 
-
 export const schema = yup.object({
-    newPassword: yup
+  newPassword: yup
     .string()
     .min(MIN_LENGTH, getMinLengthErrorMessage('Пароль', MIN_LENGTH))
     .max(MAX_LENGTH, getMinLengthErrorMessage('Пароль', MAX_LENGTH))

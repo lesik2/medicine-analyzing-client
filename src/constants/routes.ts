@@ -4,7 +4,7 @@ export enum Routes {
   REGISTER = '/register',
   NOT_FOUND = '*',
   TICKETS = '/tickets',
-  PROFILE='/profile',
-  SEND_MAIL='/recall',
+  PROFILE = '/profile',
+  SEND_MAIL = '/recall',
   NEW_PASSWORD = '/recall/replace',
 }

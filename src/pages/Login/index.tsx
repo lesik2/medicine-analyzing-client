@@ -20,13 +20,12 @@ import { AuthUser } from '@/types/auth';
 import { authUserAtom } from '@/atoms/auth';
 import { StorageKeys } from '@/constants/localStorage';
 
-
 type Inputs = {
   email: string;
   password: string;
 };
 
-interface LoginProps{
+interface LoginProps {
   email: string;
   password: string;
   token?: string;
@@ -61,8 +60,7 @@ export const LoginPage = () => {
   };
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
-    
-    mutate({...data,token});
+    mutate({ ...data, token });
     setShowNotification(false);
   };
 
@@ -80,7 +78,6 @@ export const LoginPage = () => {
       setError('root', { message: error.message });
     }
   }, [error, setError]);
-
 
   return (
     <div className={styles.wrapper}>

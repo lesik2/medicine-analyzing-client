@@ -1,6 +1,6 @@
 import { ApiGetConfig, ApiSendConfig } from '@/types';
 
-const BASE_URL = 'auth'
+const BASE_URL = 'auth';
 
 export const loginConfig: ApiSendConfig = {
   url: `${BASE_URL}/login`,
@@ -12,22 +12,22 @@ export const registerConfig: ApiSendConfig = {
   method: 'post',
 };
 
-export const logoutConfig: ApiGetConfig ={
+export const logoutConfig: ApiGetConfig = {
   keys: ['logout'],
   url: `${BASE_URL}/logout`,
-}
+};
 
 export const resendConfirmationEmailConfig: ApiSendConfig = {
   url: `${BASE_URL}/resend`,
-  method:'post'
-}
+  method: 'post',
+};
 
 export const resetPasswordEmailConfig: ApiSendConfig = {
   url: `${BASE_URL}/recall`,
-  method:'post'
-}
+  method: 'post',
+};
 
 export const restorePasswordConfig: ApiSendConfig = {
   url: `${BASE_URL}/restore`,
-  method:'post'
-}
+  method: 'post',
+};

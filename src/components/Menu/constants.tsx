@@ -4,32 +4,32 @@ import { DoorArrowRightBoldMIcon } from '@alfalab/icons-glyph/DoorArrowRightBold
 import { ReactNode } from 'react';
 import { Routes } from '@/constants/routes';
 
-export const logoutItemName = 'Выход'
+export const logoutItemName = 'Выход';
 
-interface MenuItem{
-    iconElement: ReactNode,
-    name: string;
-    routePath: string;
-    id: number;
+interface MenuItem {
+  iconElement: ReactNode;
+  name: string;
+  routePath: string;
+  id: number;
 }
 
-export const menuItemsConfig: MenuItem[]=[
-    {
-        id:0,
-        name: 'Профиль',
-        iconElement: <NavigationProfileMIcon />,
-        routePath:Routes.PROFILE
-    },
-    {
-        id:1,
-        name: 'Талоны',
-        iconElement: <ReceiptLineMIcon />,
-        routePath:Routes.TICKETS
-    },
-    {
-        id:2,
-        name: logoutItemName,
-        iconElement: <DoorArrowRightBoldMIcon />,
-        routePath:Routes.LOGIN
-    },
-]
+export const menuItemsConfig: MenuItem[] = [
+  {
+    id: 0,
+    name: 'Профиль',
+    iconElement: <NavigationProfileMIcon />,
+    routePath: Routes.PROFILE,
+  },
+  {
+    id: 1,
+    name: 'Талоны',
+    iconElement: <ReceiptLineMIcon />,
+    routePath: Routes.TICKETS,
+  },
+  {
+    id: 2,
+    name: logoutItemName,
+    iconElement: <DoorArrowRightBoldMIcon />,
+    routePath: Routes.LOGIN,
+  },
+];

@@ -29,8 +29,8 @@
 .sumbitButton {
   margin: var(--gap-32) 0;
 }
-.linksWrapper{
-  width:100%;
+.linksWrapper {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

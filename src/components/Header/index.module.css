@@ -3,7 +3,7 @@
   height: var(--gap-72);
   background-color: var(--color-dark-base-bg-primary-inverted);
   z-index: var(--z-index-header);
-  top:0;
+  top: 0;
   left: 0;
   position: fixed;
   display: flex;
@@ -13,7 +13,7 @@
 }
 
 .headerWrapper {
-  margin:0 var(--gap-40) 0 var(--gap-20);
+  margin: 0 var(--gap-40) 0 var(--gap-20);
   height: 100%;
   width: 100%;
   display: flex;
@@ -21,7 +21,7 @@
   justify-content: space-between;
 }
 
-.infoWrapper{
+.infoWrapper {
   display: flex;
   height: 100%;
 }

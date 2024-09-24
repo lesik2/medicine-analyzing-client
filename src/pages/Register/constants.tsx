@@ -1,10 +1,10 @@
 export const config = {
   title: <>Регистрация</>,
-  nameField:{
+  nameField: {
     name: 'name',
     label: 'Имя',
   },
-  surnameField:{
+  surnameField: {
     name: 'surname',
     label: 'Фамилия',
   },
@@ -22,10 +22,11 @@ export const config = {
   },
   button: 'Продолжить',
   link: 'Уже есть аккаунт?',
-  modal:{
+  modal: {
     title: 'Успешная регистрация!',
-    getMessage: (email: string)=>`Мы отправили на почту ${email} письмо для подтверждения аккаунта.`,
+    getMessage: (email: string) =>
+      `Мы отправили на почту ${email} письмо для подтверждения аккаунта.`,
     primaryBtn: 'Войти',
-    secondaryBtn: 'Отправить еще раз'
-  }
+    secondaryBtn: 'Отправить еще раз',
+  },
 } as const;

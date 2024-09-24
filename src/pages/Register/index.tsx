@@ -21,7 +21,7 @@ import { registerConfig, resendConfirmationEmailConfig } from '@/api/auth';
 import { useModal } from '@/hooks/useModal';
 
 type Inputs = {
-  name: string,
+  name: string;
   surname: string;
   email: string;
   password: string;
@@ -36,11 +36,11 @@ export const RegisterPage = () => {
     formState: { isValid, isSubmitting },
   } = methods;
   const [showNotification, setShowNotification] = useState(false);
-  const {isOpen, handleClose,handleOpen} = useModal();
+  const { isOpen, handleClose, handleOpen } = useModal();
   const [email, setEmail] = useState('');
   const [isReset, setIsReset] = useState(false);
 
-  const { mutate, error,isSuccess } = useApiSend<
+  const { mutate, error, isSuccess } = useApiSend<
     Omit<Inputs, 'confirmPassword'>,
     AuthUser
   >({
@@ -50,8 +50,8 @@ export const RegisterPage = () => {
     },
   });
 
-  const { mutate:resendMutation,isPending  } = useApiSend<
-    {email:string},
+  const { mutate: resendMutation, isPending } = useApiSend<
+    { email: string },
     void
   >({
     ...resendConfirmationEmailConfig,
@@ -62,28 +62,27 @@ export const RegisterPage = () => {
   };
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { email, password,name, surname} = data;
+    const { email, password, name, surname } = data;
     setEmail(email);
     setIsReset(false);
     setShowNotification(false);
-    mutate({ email, password,name, surname });
+    mutate({ email, password, name, surname });
   };
 
   useEffect(() => {
     if (error) {
       setError('root', { message: error.message });
     }
-    if(isSuccess){
+    if (isSuccess) {
       handleOpen();
       setIsReset(true);
-      reset()
+      reset();
     }
-  }, [error, setError,isSuccess,handleOpen,reset]);
+  }, [error, setError, isSuccess, handleOpen, reset]);
 
-
-  const handleResendClick = useCallback(()=>{
-    resendMutation({email});
-  },[email,resendMutation])
+  const handleResendClick = useCallback(() => {
+    resendMutation({ email });
+  }, [email, resendMutation]);
 
   return (
     <div className={styles.wrapper}>
@@ -168,32 +167,37 @@ export const RegisterPage = () => {
       <ModalDesktop open={isOpen} onClose={handleClose}>
         <Modal.Header>
           <SuperEllipse className={styles.modalIconWrapper} border={true}>
-            <CheckmarkMediumMIcon  className={styles.modalIcon}/>
+            <CheckmarkMediumMIcon className={styles.modalIcon} />
           </SuperEllipse>
         </Modal.Header>
         <Modal.Content className={styles.modalContent}>
-          <Typography.Title
-            tag="h3"
-            color="primary"
-            view="small"
-          >
+          <Typography.Title tag="h3" color="primary" view="small">
             {config.modal.title}
           </Typography.Title>
-          <Typography.Text
-            tag="p"
-            color="primary"
-            view="primary-large"
-            
-          >
+          <Typography.Text tag="p" color="primary" view="primary-large">
             {config.modal.getMessage(email)}
           </Typography.Text>
         </Modal.Content>
         <Modal.Footer>
-          <Modal.Controls gap={24} layout='center'  primary={<Button size={48} view="primary" href={Routes.LOGIN}>
-            {config.modal.primaryBtn}
-          </Button>} secondary={<Button size={48} view="secondary" onClick={handleResendClick} loading={isPending}>
-            {config.modal.secondaryBtn}
-          </Button>}/>
+          <Modal.Controls
+            gap={24}
+            layout="center"
+            primary={
+              <Button size={48} view="primary" href={Routes.LOGIN}>
+                {config.modal.primaryBtn}
+              </Button>
+            }
+            secondary={
+              <Button
+                size={48}
+                view="secondary"
+                onClick={handleResendClick}
+                loading={isPending}
+              >
+                {config.modal.secondaryBtn}
+              </Button>
+            }
+          />
         </Modal.Footer>
       </ModalDesktop>
     </div>
