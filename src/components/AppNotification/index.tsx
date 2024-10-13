@@ -22,7 +22,8 @@ export const AppNotification = ({
     <Notification
       contentClassName={styles.contentClassName}
       titleClassName={styles.titleClassName}
-      autoCloseDelay={3000}
+      autoCloseDelay={2000}
+      onCloseTimeout={onClose}
       onClose={onClose}
       hasCloser
       visible={visible}

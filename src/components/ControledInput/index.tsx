@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FieldValues, Path, PathValue, useForm } from 'react-hook-form';
+import { NumberInput } from '@alfalab/core-components/number-input';
 import { Input } from '@alfalab/core-components/input';
 import { PasswordInput } from '@alfalab/core-components/password-input';
 
@@ -12,6 +13,7 @@ type Props<T extends FieldValues> = {
   clear?: boolean;
   methods: ReturnType<typeof useForm<T>>;
   isReset?: boolean;
+  max?: number,
 } & React.ComponentProps<typeof Input>;
 
 export const ControlledInput = <T extends FieldValues>({
@@ -56,6 +58,14 @@ export const ControlledInput = <T extends FieldValues>({
     setFieldValue(e.target.value as PathValue<T, typeof name>);
   };
 
+  const onChangeNumberHandler = (
+    _e: React.ChangeEvent<HTMLInputElement> | null,
+    payload: { value: number | null }
+  ) => {
+    setFieldValue((payload.value !== null ? payload.value.toString() : '') as PathValue<T, typeof name>);
+  };
+
+
   const onBlurHandler = () => {
     trigger(name);
   };
@@ -69,7 +79,6 @@ export const ControlledInput = <T extends FieldValues>({
   const fieldConfig: React.ComponentProps<typeof Input> = {
     error: errors[name]?.message as string,
     value: fieldValue,
-    onChange: onChangeHandler,
     onBlur: onBlurHandler,
     label,
     block: true,
@@ -79,7 +88,23 @@ export const ControlledInput = <T extends FieldValues>({
   };
 
   if (type === 'password') {
-    return <PasswordInput {...fieldConfig} />;
+    return <PasswordInput {...fieldConfig} onChange={onChangeHandler}/>;
+  }
+
+  if (type === 'number') {
+    return (
+      <NumberInput
+        error= {errors[name]?.message as string}
+        value={fieldValue}
+        onBlur={onBlurHandler}
+        label={label}
+        block={true}
+        size={size}
+        clear={clear}
+        onClear={clear ? handleClear : undefined}
+        onChange={onChangeNumberHandler}
+      />
+    );
   }
 
   return (
@@ -87,6 +112,7 @@ export const ControlledInput = <T extends FieldValues>({
       {...fieldConfig}
       clear={clear}
       onClear={clear ? handleClear : undefined}
+      onChange={onChangeHandler}
     />
   );
 };

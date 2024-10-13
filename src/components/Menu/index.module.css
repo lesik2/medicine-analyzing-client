@@ -1,5 +1,5 @@
 .menuWrapper {
-  height: 100%;
+  height: calc(100% - var(--gap-72));
   width: 262px;
   position: absolute;
   top: 0;

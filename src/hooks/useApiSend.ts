@@ -13,7 +13,7 @@ interface UseApiSendProps<T, R> {
   method: 'post' | 'patch';
   success?: (data: R) => void;
   error?: (error: AxiosError<ServerResponseError>) => void;
-  invalidateKey?: string[];
+  invalidateKey?: unknown[];
   options?: UseMutationOptions<R, AxiosError<ServerResponseError>, T>;
 }
 

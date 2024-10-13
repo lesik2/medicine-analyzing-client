@@ -1,0 +1,6 @@
+.contentWrapperFields{
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-16);
+    margin: var(--gap-32) 0 var(--gap-8) 0;
+}

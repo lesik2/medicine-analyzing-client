@@ -7,4 +7,6 @@ export enum Routes {
   PROFILE = '/profile',
   SEND_MAIL = '/recall',
   NEW_PASSWORD = '/recall/replace',
+  DOCTORS = '/doctors',
+  OFFICES = '/offices',
 }

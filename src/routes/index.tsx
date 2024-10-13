@@ -5,6 +5,8 @@ import { Routes } from '@constants/routes';
 import { HeaderLayout } from '@/layouts/HeaderLayout';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { MainLayout } from '@/layouts/MainLayout';
+import { PrivateRoute } from '@/components/PrivateRoute';
+import { Roles } from '@/types/roles';
 
 const HomePage = lazy(async () => ({
   default: (await import('@/pages/Home')).HomePage,
@@ -26,6 +28,12 @@ const SendMailPage = lazy(async () => ({
 }));
 const NewPasswordPage = lazy(async () => ({
   default: (await import('@/pages/ResetPassword/NewPassword')).NewPasswordPage,
+}));
+const DoctorsPage = lazy(async () => ({
+  default: (await import('@/pages/Doctors')).DoctorsPage,
+}));
+const OfficesPage = lazy(async () => ({
+  default: (await import('@/pages/Offices')).OfficesPage,
 }));
 const NotFoundPage = lazy(async () => ({
   default: (await import('@/pages/Not-found')).NotFound,
@@ -49,6 +57,10 @@ export const AppRoutes = () => {
         >
           <Route path={Routes.PROFILE} element={<ProfilePage />} />
           <Route path={Routes.TICKETS} element={<TicketsPage />} />
+          <Route element={<PrivateRoute available={[Roles.MANAGER]} />}>
+            <Route path={Routes.DOCTORS} element={<DoctorsPage />} />
+            <Route path={Routes.OFFICES} element={<OfficesPage />} />
+          </Route>
         </Route>
       </Route>
       <Route path={Routes.NOT_FOUND} element={<NotFoundPage />} />

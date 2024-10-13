@@ -1,0 +1,15 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tableWrapper {
+  padding: 0 var(--gap-24);
+  height: 85%;
+}
+
+.pagination {
+  bottom: 0;
+  background-color: var(--color-dark-base-bg-primary-inverted);
+}
