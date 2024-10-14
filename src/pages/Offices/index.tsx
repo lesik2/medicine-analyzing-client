@@ -25,7 +25,7 @@ import { showNotificationAtom } from '@/atoms/notification';
 
 export const OfficesPage = () => {
   const { handleClose, handleOpen, isOpen, id } = useModal();
-  const openNotification = useSetAtom(showNotificationAtom)
+  const openNotification = useSetAtom(showNotificationAtom);
 
   const {
     sortKey,
@@ -39,28 +39,28 @@ export const OfficesPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'number' });
 
-
-  const { mutate,isSuccess,isPending } = useApiSend<
+  const { mutate, isSuccess, isPending } = useApiSend<
     CreateOffice,
     CreateOffice
   >({
     ...createOfficeConfig,
   });
-  
-  const { data, isFetching, isLoading,refetch } = useApiGet<GetAllOfficesResponse>({
-    ...getAllOfficesConfig([
-      sortKey,
-      getSortOrders(isSortedDesc),
-      page,
-      perPage,
-    ]),
-    params: {
-      sortKey: isSortedDesc === undefined ? undefined : sortKey,
-      sortDirection: getSortOrders(isSortedDesc),
-      page,
-      perPage,
-    },
-  });
+
+  const { data, isFetching, isLoading, refetch } =
+    useApiGet<GetAllOfficesResponse>({
+      ...getAllOfficesConfig([
+        sortKey,
+        getSortOrders(isSortedDesc),
+        page,
+        perPage,
+      ]),
+      params: {
+        sortKey: isSortedDesc === undefined ? undefined : sortKey,
+        sortDirection: getSortOrders(isSortedDesc),
+        page,
+        perPage,
+      },
+    });
 
   const showSkeleton = isFetching || isLoading;
 
@@ -73,19 +73,17 @@ export const OfficesPage = () => {
     [handleOpen],
   );
 
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       handleClose();
       openNotification({
         title: config.notificationTitle,
         message: config.notificationMessage,
-        badge: 'positive-checkmark'
-      })
+        badge: 'positive-checkmark',
+      });
       refetch();
     }
-  },[isSuccess,refetch,handleClose, openNotification])
-
-  
+  }, [isSuccess, refetch, handleClose, openNotification]);
 
   return (
     <div className={styles.pageWrapper}>
@@ -131,9 +129,7 @@ export const OfficesPage = () => {
               {TableHeadersName.doctors}
             </Table.THeadCell>
 
-            <Table.THeadCell
-              title={TableHeadersName.status}
-            >
+            <Table.THeadCell title={TableHeadersName.status}>
               {TableHeadersName.status}
             </Table.THeadCell>
 
@@ -142,7 +138,7 @@ export const OfficesPage = () => {
             </Table.THeadCell>
           </Table.THead>
           <Table.TBody>
-            {data?.items?.map(({ id, number, specialty, doctors,status }) => (
+            {data?.items?.map(({ id, number, specialty, doctors, status }) => (
               <Table.TRow key={id}>
                 <Table.TCell>
                   <Typography.Text
@@ -183,13 +179,13 @@ export const OfficesPage = () => {
                   </Skeleton>
                 </Table.TCell>
                 <Table.TCell>
-                <Skeleton visible={showSkeleton}>
-                  <IconButton
-                    view="secondary"
-                    size={32}
-                    icon={PencilMIcon}
-                    transparentBg={true}
-                  />
+                  <Skeleton visible={showSkeleton}>
+                    <IconButton
+                      view="secondary"
+                      size={32}
+                      icon={PencilMIcon}
+                      transparentBg={true}
+                    />
                   </Skeleton>
                 </Table.TCell>
               </Table.TRow>
@@ -197,7 +193,14 @@ export const OfficesPage = () => {
           </Table.TBody>
         </Table>
       </div>
-      {isOpen && <OfficesForm submit={mutate} id={id} handleClose={handleClose} isLoading={isPending} />}
+      {isOpen && (
+        <OfficesForm
+          submit={mutate}
+          id={id}
+          handleClose={handleClose}
+          isLoading={isPending}
+        />
+      )}
     </div>
   );
 };

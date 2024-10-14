@@ -14,3 +14,12 @@ export interface GetAllDoctorsResponse {
 }
 
 
+export interface CreateDoctor {
+  name: string;
+  surname: string;
+  patronymic?: string;
+  specialty: string;
+  typeOfShifts: string;
+  email: string;
+  officeId?: string;
+}

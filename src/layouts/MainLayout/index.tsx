@@ -6,12 +6,11 @@ import { AppNotification } from '@/components/AppNotification';
 import { closeNotificationAtom, notificationAtom } from '@/atoms/notification';
 
 export const MainLayout = () => {
-
-  const {visible, title, message, badge}= useAtomValue(notificationAtom)
+  const { visible, title, message, badge } = useAtomValue(notificationAtom);
   const closeNotification = useSetAtom(closeNotificationAtom);
-  const handleCloseNotification =()=>{
-    closeNotification()
-  }
+  const handleCloseNotification = () => {
+    closeNotification();
+  };
   return (
     <div className={styles.wrapper}>
       <Menu />

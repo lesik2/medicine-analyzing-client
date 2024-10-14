@@ -3,18 +3,28 @@ import { Typography } from '@alfalab/core-components/typography';
 import { PencilMIcon } from '@alfalab/icons-glyph/PencilMIcon';
 import { IconButton } from '@alfalab/core-components/icon-button';
 import { Skeleton } from '@alfalab/core-components/skeleton';
+import { useCallback, useEffect } from 'react';
+import { useSetAtom } from 'jotai';
 import styles from './index.module.css';
-import { TableHeadersName, TableHeaders } from './constants';
+import { TableHeadersName, TableHeaders, config } from './constants';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
-import { getAllDoctorsConfig } from '@/api/doctors';
-import { GetAllDoctorsResponse } from '@/types/doctor';
+import { createDoctorConfig, getAllDoctorsConfig } from '@/api/doctors';
+import { CreateDoctor, GetAllDoctorsResponse } from '@/types/doctor';
 import { doctorSpecialty } from '@/constants/doctorSpecialty';
 import { shiftsOfWork } from '@/constants/typeOfShifts';
 import { getSortOrders } from '@/utils/getSortOrders';
+import { useModal } from '@/hooks/useModal';
+import { DoctorsForm } from '@/forms/DoctorsForm';
+import { useApiSend } from '@/hooks/useApiSend';
+import { showNotificationAtom } from '@/atoms/notification';
+import { AppErrors } from '@/constants/errors';
 
 export const DoctorsPage = () => {
+
+  const { handleClose, handleOpen, isOpen, id } = useModal();
+  const openNotification = useSetAtom(showNotificationAtom);
   const {
     sortKey,
     isSortedDesc,
@@ -27,7 +37,14 @@ export const DoctorsPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'surname' });
 
-  const { data, isFetching, isLoading } = useApiGet<GetAllDoctorsResponse>({
+  const { mutate, isSuccess, isPending,error } = useApiSend<
+    CreateDoctor,
+    CreateDoctor
+  >({
+    ...createDoctorConfig,
+  });
+
+  const { data, isFetching, isLoading,refetch } = useApiGet<GetAllDoctorsResponse>({
     ...getAllDoctorsConfig([
       sortKey,
       getSortOrders(isSortedDesc),
@@ -42,13 +59,44 @@ export const DoctorsPage = () => {
     },
   });
 
+  const handleOpenModal = useCallback(
+    (newId?: string) => () => {
+      handleOpen(newId);
+    },
+    [handleOpen],
+  );
+
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleClose();
+      openNotification({
+        title: config.notificationTitle,
+        message: config.notificationMessage,
+        badge: 'positive-checkmark',
+      });
+      refetch();
+    }
+  }, [isSuccess, refetch, handleClose, openNotification]);
+
+  useEffect(()=>{
+    if(error){
+      openNotification({
+        title: AppErrors.generalError,
+        message: error?.response?.data.message || '',
+        badge: 'negative-cross',
+      });
+    }
+
+  },[error,openNotification])
+
   const showSkeleton = isFetching || isLoading;
 
   const pagesCount = data ? Math.ceil(data.total / perPage) : 0;
 
   return (
     <div className={styles.pageWrapper}>
-      <Heading title="Персонал" onClick={() => console.log('d')} />
+      <Heading title="Персонал" onClick={handleOpenModal()} />
       <div className={styles.tableWrapper}>
         <Table
           stickyHeader
@@ -150,13 +198,13 @@ export const DoctorsPage = () => {
                     </Typography.Text>
                   </Table.TCell>
                   <Table.TCell>
-                  <Skeleton visible={showSkeleton}>
-                    <IconButton
-                      view="secondary"
-                      size={32}
-                      icon={PencilMIcon}
-                      transparentBg={true}
-                    />
+                    <Skeleton visible={showSkeleton}>
+                      <IconButton
+                        view="secondary"
+                        size={32}
+                        icon={PencilMIcon}
+                        transparentBg={true}
+                      />
                     </Skeleton>
                   </Table.TCell>
                 </Table.TRow>
@@ -165,6 +213,14 @@ export const DoctorsPage = () => {
           </Table.TBody>
         </Table>
       </div>
+      {isOpen && (
+        <DoctorsForm
+          id={id}
+          handleClose={handleClose}
+          isLoading={isPending}
+          submit={mutate}
+        />
+      )}
     </div>
   );
 };

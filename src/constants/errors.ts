@@ -16,4 +16,5 @@ export enum AppErrors {
   incorrectNameFormat = 'Имя должно содержать только буквы алфавита',
   incorrectSurnameFormat = 'Фамилия должна содержать только буквы алфавита',
   wrongInput = 'Некорректый ввод',
+  generalError = 'Ошибка!'
 }

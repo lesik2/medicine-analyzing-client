@@ -6,5 +6,3 @@ export const authUserAtom = atomWithStorage<AuthUser | null>(
   StorageKeys.authUser,
   null,
 );
-
-

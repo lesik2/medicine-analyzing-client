@@ -1,4 +1,3 @@
-import { List } from '@alfalab/core-components/list';
 import { Space } from '@alfalab/core-components/space';
 import { Typography } from '@alfalab/core-components/typography';
 import { memo } from 'react';
@@ -15,7 +14,6 @@ const DoctorsShiftsItemInner = ({
   typeOfShifts,
 }: DoctorsShiftsItemProps) => {
   return (
-    <List.Item>
       <Space size={0} direction="vertical">
         <Typography.Text view="primary-small" tag="div">
           {fullName}
@@ -24,7 +22,6 @@ const DoctorsShiftsItemInner = ({
           {shiftsOfWork[typeOfShifts]}
         </Typography.Text>
       </Space>
-    </List.Item>
   );
 };
 

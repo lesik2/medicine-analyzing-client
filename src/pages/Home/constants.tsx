@@ -5,7 +5,7 @@ import { WaitTimesIcon } from '@/assets/icons/WaitTimesIcon';
 
 export const config = {
   firstSection: {
-    title: 'Скорей выздоравливай',
+    title: 'Скореe выздоравливай',
     link: 'Забронируйте талон',
   },
   secondSection: {

@@ -1,9 +1,8 @@
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { OptionShape } from '@alfalab/core-components/select/shared';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { config } from './constants';
-import styles from './index.module.css'
+import styles from './index.module.css';
 import { schema } from './sсhema';
 import { FormModal } from '@/components/FormModal';
 import { ControlledInput } from '@/components/ControledInput';
@@ -14,23 +13,28 @@ import { CreateOffice } from '@/types/office';
 interface OfficeFormProps {
   handleClose: () => void;
   id: string | undefined;
-  submit: (data: CreateOffice)=>void;
+  submit: (data: CreateOffice) => void;
   isLoading: boolean;
 }
 
 type Inputs = {
-    number: string;
-    specialty: OptionShape;
+  number: string;
+  specialty: OptionShape;
 };
 
-export const OfficesForm = ({ id,handleClose,submit,isLoading }: OfficeFormProps) => {
+export const OfficesForm = ({
+  id,
+  handleClose,
+  submit,
+  isLoading,
+}: OfficeFormProps) => {
   const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({
       number: Number.parseInt(data.number),
-      specialty: data.specialty.key
-    })
+      specialty: data.specialty.key,
+    });
   };
 
   return (
@@ -40,7 +44,6 @@ export const OfficesForm = ({ id,handleClose,submit,isLoading }: OfficeFormProps
       handleClose={handleClose}
       handleSubmit={methods.handleSubmit(handleSubmit)}
       primaryLoading={isLoading}
-
     >
       <form>
         <div className={styles.contentWrapperFields}>
@@ -49,7 +52,7 @@ export const OfficesForm = ({ id,handleClose,submit,isLoading }: OfficeFormProps
             type="number"
             clear
             methods={methods}
-            size="l"
+            size="m"
             required={true}
           />
 
@@ -57,7 +60,7 @@ export const OfficesForm = ({ id,handleClose,submit,isLoading }: OfficeFormProps
             {...config.specialtyField}
             clear
             methods={methods}
-            size="l"
+            size="m"
             required={true}
             options={officeSpecialtyOptions}
           />

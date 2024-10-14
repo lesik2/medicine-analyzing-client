@@ -13,7 +13,7 @@ type Props<T extends FieldValues> = {
   clear?: boolean;
   methods: ReturnType<typeof useForm<T>>;
   isReset?: boolean;
-  max?: number,
+  max?: number;
 } & React.ComponentProps<typeof Input>;
 
 export const ControlledInput = <T extends FieldValues>({
@@ -60,11 +60,15 @@ export const ControlledInput = <T extends FieldValues>({
 
   const onChangeNumberHandler = (
     _e: React.ChangeEvent<HTMLInputElement> | null,
-    payload: { value: number | null }
+    payload: { value: number | null },
   ) => {
-    setFieldValue((payload.value !== null ? payload.value.toString() : '') as PathValue<T, typeof name>);
+    setFieldValue(
+      (payload.value !== null ? payload.value.toString() : '') as PathValue<
+        T,
+        typeof name
+      >,
+    );
   };
-
 
   const onBlurHandler = () => {
     trigger(name);
@@ -88,13 +92,13 @@ export const ControlledInput = <T extends FieldValues>({
   };
 
   if (type === 'password') {
-    return <PasswordInput {...fieldConfig} onChange={onChangeHandler}/>;
+    return <PasswordInput {...fieldConfig} onChange={onChangeHandler} />;
   }
 
   if (type === 'number') {
     return (
       <NumberInput
-        error= {errors[name]?.message as string}
+        error={errors[name]?.message as string}
         value={fieldValue}
         onBlur={onBlurHandler}
         label={label}

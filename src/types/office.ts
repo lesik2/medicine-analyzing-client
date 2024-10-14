@@ -11,7 +11,7 @@ export interface OfficeResponse {
   number: number;
   specialty: Specialty;
   doctors: DoctorResponseForOffice[];
-  status:Status;
+  status: Status;
 }
 
 export interface GetAllOfficesResponse {
@@ -19,7 +19,19 @@ export interface GetAllOfficesResponse {
   items: OfficeResponse[];
 }
 
-export interface CreateOffice{
-  number: number,
-  specialty: string,
+export interface CreateOffice {
+  number: number;
+  specialty: string;
 }
+
+
+export interface FreeOffice {
+  key: number;
+  value: {
+    availableShifts: string[];
+    id: string;
+    number: number;
+    specialty: Specialty;
+  };
+}
+

@@ -22,7 +22,7 @@ export const FormModalInner = ({
   children,
   title,
   primaryDisabled,
-  primaryLoading
+  primaryLoading,
 }: AppModalProps) => {
   return (
     <ModalDesktop open={true} onClose={handleClose}>
@@ -33,7 +33,13 @@ export const FormModalInner = ({
           gap={24}
           layout="start"
           primary={
-            <Button size={48} view="primary" onClick={handleSubmit} loading={primaryLoading} disabled={primaryDisabled}>
+            <Button
+              size={48}
+              view="primary"
+              onClick={handleSubmit}
+              loading={primaryLoading}
+              disabled={primaryDisabled}
+            >
               {id ? config.editBtnText : config.addBtnText}
             </Button>
           }

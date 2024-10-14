@@ -11,7 +11,6 @@ export const TableHeaders = {
   specialty: 'specialty',
 };
 
-
 export const config = {
   notificationTitle: 'Успешно!',
   notificationMessage: 'Кабинет успешно сохранён.',

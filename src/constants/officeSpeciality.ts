@@ -1,4 +1,4 @@
-import { OptionShape } from "@alfalab/core-components/select/shared";
+import { OptionShape } from '@alfalab/core-components/select/shared';
 
 export const officeSpecialty = {
   'Общая практика': 'Кабинет общей практики',
@@ -15,9 +15,9 @@ export const officeSpecialty = {
   Психиатрия: 'Кабинет психиатрии',
 } as const;
 
-
-export const officeSpecialtyOptions: OptionShape[] = Object.entries(officeSpecialty).map(([key, value]) => ({
+export const officeSpecialtyOptions: OptionShape[] = Object.entries(
+  officeSpecialty,
+).map(([key, value]) => ({
   key,
   content: value,
 }));
-

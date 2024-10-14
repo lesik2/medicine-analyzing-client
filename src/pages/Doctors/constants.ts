@@ -12,3 +12,9 @@ export const TableHeaders = {
   typeOfShifts: 'typeOfShifts',
   officeNumber: 'officeNumber',
 };
+
+
+export const config = {
+  notificationTitle: 'Успешно!',
+  notificationMessage: 'Сотрудник успешно сохранён.',
+};

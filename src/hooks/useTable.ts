@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const possiblePerPageArrays = [25, 50, 100];
+const possiblePerPageArrays = [10, 15, 25];
 
 interface useTableProps {
   defaultSortKey?: string;
