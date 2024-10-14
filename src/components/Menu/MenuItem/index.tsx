@@ -35,7 +35,7 @@ export const MenuItem = ({
       {iconElement}
       <Typography.Text
         tag="span"
-        color={isActive ? 'accent' : 'primary'}
+        color={isActive ? 'primary' : 'secondary'}
         view="primary-medium"
       >
         {name}

@@ -2,6 +2,7 @@ import { Table } from '@alfalab/core-components/table';
 import { Typography } from '@alfalab/core-components/typography';
 import { PencilMIcon } from '@alfalab/icons-glyph/PencilMIcon';
 import { IconButton } from '@alfalab/core-components/icon-button';
+import { Skeleton } from '@alfalab/core-components/skeleton';
 import styles from './index.module.css';
 import { TableHeadersName, TableHeaders } from './constants';
 import { Heading } from '@/components/Heading';
@@ -149,12 +150,14 @@ export const DoctorsPage = () => {
                     </Typography.Text>
                   </Table.TCell>
                   <Table.TCell>
+                  <Skeleton visible={showSkeleton}>
                     <IconButton
-                      view="primary"
+                      view="secondary"
                       size={32}
                       icon={PencilMIcon}
                       transparentBg={true}
                     />
+                    </Skeleton>
                   </Table.TCell>
                 </Table.TRow>
               ),

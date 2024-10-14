@@ -35,3 +35,9 @@ export enum TypesOfShifts {
   SECOND_SHIFT = 'Вторая смена',
   FULL_SHIFT = 'Полная смена',
 }
+
+export enum Status {
+  FILLED = 'Полный состав',
+  PARTIALLY_FILLED = 'Один сотрудник',
+  EMPTY = 'Нет сотрудников',
+}

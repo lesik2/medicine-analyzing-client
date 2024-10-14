@@ -1,4 +1,4 @@
-import { Specialty, TypesOfShifts } from '.';
+import { Specialty, Status, TypesOfShifts } from '.';
 
 export interface DoctorResponseForOffice {
   id: string;
@@ -11,6 +11,7 @@ export interface OfficeResponse {
   number: number;
   specialty: Specialty;
   doctors: DoctorResponseForOffice[];
+  status:Status;
 }
 
 export interface GetAllOfficesResponse {

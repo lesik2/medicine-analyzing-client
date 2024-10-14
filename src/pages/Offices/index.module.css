@@ -13,15 +13,3 @@
   bottom: 0;
   background-color: var(--color-dark-base-bg-primary-inverted);
 }
-
-.green-background {
-  background: #dff8e5;
-}
-
-.orange-background {
-  background: #ffefd9;
-}
-
-.red-background {
-  background: #ffebeb;
-}

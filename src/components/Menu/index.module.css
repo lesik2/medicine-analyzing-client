@@ -1,11 +1,11 @@
 .menuWrapper {
-  height: calc(100% - var(--gap-72));
+  height: calc(100% - var(--gap-80));
   width: 262px;
   position: absolute;
   top: 0;
   left: 0;
   z-index: var(--z-index-menu);
-  padding-top: var(--gap-72);
+  padding-top: var(--gap-80);
   background-color: var(--color-dark-base-bg-primary-inverted);
   display: flex;
   flex-direction: column;

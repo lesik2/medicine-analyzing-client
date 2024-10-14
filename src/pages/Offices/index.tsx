@@ -4,11 +4,12 @@ import { PencilMIcon } from '@alfalab/icons-glyph/PencilMIcon';
 import { IconButton } from '@alfalab/core-components/icon-button';
 import { Skeleton } from '@alfalab/core-components/skeleton';
 import { List } from '@alfalab/core-components/list';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { Status } from '@alfalab/core-components/status';
+import { useSetAtom } from 'jotai';
 import styles from './index.module.css';
 import { config, TableHeaders, TableHeadersName } from './constants';
 import { DoctorsShiftsItem } from './DoctorsShiftsItem';
-import { getCellClassName } from './utiils/getCellClassName';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
@@ -19,11 +20,12 @@ import { officeSpecialty } from '@/constants/officeSpeciality';
 import { useModal } from '@/hooks/useModal';
 import { OfficesForm } from '@/forms/OfficesForm';
 import { useApiSend } from '@/hooks/useApiSend';
-import { AppNotification } from '@/components/AppNotification';
+import { statusColors } from '@/constants/statusColors';
+import { showNotificationAtom } from '@/atoms/notification';
 
 export const OfficesPage = () => {
   const { handleClose, handleOpen, isOpen, id } = useModal();
-  const [showNotification, setShowNotification] = useState(false);
+  const openNotification = useSetAtom(showNotificationAtom)
 
   const {
     sortKey,
@@ -37,13 +39,6 @@ export const OfficesPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'number' });
 
-  const handleCloseNotification = useCallback(() => {
-    setShowNotification(false);
-  },[]);
-
-  const handleOpenNotification = useCallback(() => {
-    setShowNotification(true);
-  },[]);
 
   const { mutate,isSuccess,isPending } = useApiSend<
     CreateOffice,
@@ -81,10 +76,14 @@ export const OfficesPage = () => {
   useEffect(()=>{
     if(isSuccess){
       handleClose();
-      handleOpenNotification()
+      openNotification({
+        title: config.notificationTitle,
+        message: config.notificationMessage,
+        badge: 'positive-checkmark'
+      })
       refetch();
     }
-  },[isSuccess,handleOpenNotification,refetch,handleClose])
+  },[isSuccess,refetch,handleClose, openNotification])
 
   
 
@@ -132,12 +131,18 @@ export const OfficesPage = () => {
               {TableHeadersName.doctors}
             </Table.THeadCell>
 
+            <Table.THeadCell
+              title={TableHeadersName.status}
+            >
+              {TableHeadersName.status}
+            </Table.THeadCell>
+
             <Table.THeadCell title={TableHeadersName.edit}>
               {TableHeadersName.edit}
             </Table.THeadCell>
           </Table.THead>
           <Table.TBody>
-            {data?.items?.map(({ id, number, specialty, doctors }) => (
+            {data?.items?.map(({ id, number, specialty, doctors,status }) => (
               <Table.TRow key={id}>
                 <Table.TCell>
                   <Typography.Text
@@ -157,7 +162,7 @@ export const OfficesPage = () => {
                     {officeSpecialty[specialty]}
                   </Typography.Text>
                 </Table.TCell>
-                <Table.TCell className={styles[getCellClassName(doctors)]}>
+                <Table.TCell>
                   <Skeleton visible={showSkeleton}>
                     <List tag="ul" marker="•">
                       {doctors.map(({ id, fullName, typeOfShifts }) => (
@@ -171,12 +176,21 @@ export const OfficesPage = () => {
                   </Skeleton>
                 </Table.TCell>
                 <Table.TCell>
+                  <Skeleton visible={showSkeleton}>
+                    <Status size={24} color={statusColors[status]}>
+                      {status}
+                    </Status>
+                  </Skeleton>
+                </Table.TCell>
+                <Table.TCell>
+                <Skeleton visible={showSkeleton}>
                   <IconButton
-                    view="primary"
+                    view="secondary"
                     size={32}
                     icon={PencilMIcon}
                     transparentBg={true}
                   />
+                  </Skeleton>
                 </Table.TCell>
               </Table.TRow>
             ))}
@@ -184,14 +198,6 @@ export const OfficesPage = () => {
         </Table>
       </div>
       {isOpen && <OfficesForm submit={mutate} id={id} handleClose={handleClose} isLoading={isPending} />}
-      <AppNotification
-          onClose={handleCloseNotification}
-          visible={showNotification}
-          badge='positive-checkmark'
-          title={config.notificationTitle}
-        >
-          {config.notificationMessage}
-        </AppNotification>
     </div>
   );
 };
