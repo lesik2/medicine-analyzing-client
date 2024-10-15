@@ -1,4 +1,4 @@
-import { Specialty, Status, TypesOfShifts } from '.';
+import { Specialty, StatusOfOffice, TypesOfShifts } from '.';
 
 export interface DoctorResponseForOffice {
   id: string;
@@ -11,7 +11,7 @@ export interface OfficeResponse {
   number: number;
   specialty: Specialty;
   doctors: DoctorResponseForOffice[];
-  status: Status;
+  status: StatusOfOffice;
 }
 
 export interface GetAllOfficesResponse {
@@ -24,7 +24,6 @@ export interface CreateOffice {
   specialty: string;
 }
 
-
 export interface FreeOffice {
   key: number;
   value: {
@@ -34,4 +33,3 @@ export interface FreeOffice {
     specialty: Specialty;
   };
 }
-

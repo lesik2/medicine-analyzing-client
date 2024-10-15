@@ -7,6 +7,7 @@ import { useCallback, useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import styles from './index.module.css';
 import { TableHeadersName, TableHeaders, config } from './constants';
+import { useDoctorsFilters } from './useDoctorsFilters';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
@@ -20,11 +21,12 @@ import { DoctorsForm } from '@/forms/DoctorsForm';
 import { useApiSend } from '@/hooks/useApiSend';
 import { showNotificationAtom } from '@/atoms/notification';
 import { AppErrors } from '@/constants/errors';
+import { FilterCell } from '@/components/FilterCell';
 
 export const DoctorsPage = () => {
-
   const { handleClose, handleOpen, isOpen, id } = useModal();
   const openNotification = useSetAtom(showNotificationAtom);
+  const { filters, set } = useDoctorsFilters();
   const {
     sortKey,
     isSortedDesc,
@@ -37,27 +39,34 @@ export const DoctorsPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'surname' });
 
-  const { mutate, isSuccess, isPending,error } = useApiSend<
+  const { mutate, isSuccess, isPending, error } = useApiSend<
     CreateDoctor,
     CreateDoctor
   >({
     ...createDoctorConfig,
   });
 
-  const { data, isFetching, isLoading,refetch } = useApiGet<GetAllDoctorsResponse>({
-    ...getAllDoctorsConfig([
-      sortKey,
-      getSortOrders(isSortedDesc),
-      page,
-      perPage,
-    ]),
-    params: {
-      sortKey: isSortedDesc === undefined ? undefined : sortKey,
-      sortDirection: getSortOrders(isSortedDesc),
-      page,
-      perPage,
-    },
-  });
+  const { data, isFetching, isLoading, refetch } =
+    useApiGet<GetAllDoctorsResponse>({
+      ...getAllDoctorsConfig([
+        sortKey,
+        getSortOrders(isSortedDesc),
+        page,
+        perPage,
+        filters.typeOfShifts,
+        filters.specialtyFilter
+      ]),
+      params: {
+        sortKey: isSortedDesc === undefined ? undefined : sortKey,
+        sortDirection: getSortOrders(isSortedDesc),
+        page,
+        perPage,
+        filters: {
+          typeOfShifts: filters.typeOfShifts|| undefined,
+          specialty: filters.specialtyFilter || undefined,
+        },
+      },
+    });
 
   const handleOpenModal = useCallback(
     (newId?: string) => () => {
@@ -65,7 +74,14 @@ export const DoctorsPage = () => {
     },
     [handleOpen],
   );
-
+  const handleClickSpecialtyFilter = (specialty: string) => () => {
+    handlePageChange(0);
+    set.setSpecialty(specialty);
+  };
+  const handleClickTypeOfShiftsFilter = (typeOfShifts: string) => () => {
+    handlePageChange(0);
+    set.setTypeOfShifts(typeOfShifts)
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -79,16 +95,15 @@ export const DoctorsPage = () => {
     }
   }, [isSuccess, refetch, handleClose, openNotification]);
 
-  useEffect(()=>{
-    if(error){
+  useEffect(() => {
+    if (error) {
       openNotification({
         title: AppErrors.generalError,
         message: error?.response?.data.message || '',
         badge: 'negative-cross',
       });
     }
-
-  },[error,openNotification])
+  }, [error, openNotification]);
 
   const showSkeleton = isFetching || isLoading;
 
@@ -171,22 +186,18 @@ export const DoctorsPage = () => {
                     </Typography.Text>
                   </Table.TCell>
                   <Table.TCell>
-                    <Typography.Text
-                      view="primary-small"
-                      tag="div"
-                      showSkeleton={showSkeleton}
-                    >
+                  <Skeleton visible={showSkeleton}>
+                    <FilterCell onClick={handleClickSpecialtyFilter(specialty)} isActive={filters.specialtyFilter === specialty}>
                       {doctorSpecialty[specialty]}
-                    </Typography.Text>
+                    </FilterCell>
+                    </Skeleton>
                   </Table.TCell>
                   <Table.TCell>
-                    <Typography.Text
-                      view="primary-small"
-                      tag="div"
-                      showSkeleton={showSkeleton}
-                    >
-                      {shiftsOfWork[typeOfShifts]}
-                    </Typography.Text>
+                  <Skeleton visible={showSkeleton}>
+                    <FilterCell onClick={handleClickTypeOfShiftsFilter(typeOfShifts)} isActive={filters.typeOfShifts === typeOfShifts}>
+                    {shiftsOfWork[typeOfShifts]}
+                    </FilterCell>
+                    </Skeleton>
                   </Table.TCell>
                   <Table.TCell>
                     <Typography.Text
@@ -224,3 +235,4 @@ export const DoctorsPage = () => {
     </div>
   );
 };
+

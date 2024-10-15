@@ -14,14 +14,14 @@ const DoctorsShiftsItemInner = ({
   typeOfShifts,
 }: DoctorsShiftsItemProps) => {
   return (
-      <Space size={0} direction="vertical">
-        <Typography.Text view="primary-small" tag="div">
-          {fullName}
-        </Typography.Text>
-        <Typography.Text view="primary-small" tag="div">
-          {shiftsOfWork[typeOfShifts]}
-        </Typography.Text>
-      </Space>
+    <Space size={0} direction="vertical">
+      <Typography.Text view="primary-small" tag="div">
+        {fullName}
+      </Typography.Text>
+      <Typography.Text view="primary-small" tag="div">
+        {shiftsOfWork[typeOfShifts]}
+      </Typography.Text>
+    </Space>
   );
 };
 

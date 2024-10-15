@@ -5,11 +5,11 @@ import { IconButton } from '@alfalab/core-components/icon-button';
 import { Skeleton } from '@alfalab/core-components/skeleton';
 import { List } from '@alfalab/core-components/list';
 import { useCallback, useEffect } from 'react';
-import { Status } from '@alfalab/core-components/status';
 import { useSetAtom } from 'jotai';
 import styles from './index.module.css';
 import { config, TableHeaders, TableHeadersName } from './constants';
 import { DoctorsShiftsItem } from './DoctorsShiftsItem';
+import { useOfficeFilters } from './useOfficeFilters';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
@@ -22,11 +22,13 @@ import { OfficesForm } from '@/forms/OfficesForm';
 import { useApiSend } from '@/hooks/useApiSend';
 import { statusColors } from '@/constants/statusColors';
 import { showNotificationAtom } from '@/atoms/notification';
+import { AppStatus } from '@/components/AppStatus';
+import { FilterCell } from '@/components/FilterCell';
 
 export const OfficesPage = () => {
   const { handleClose, handleOpen, isOpen, id } = useModal();
   const openNotification = useSetAtom(showNotificationAtom);
-
+  const { filters, set } = useOfficeFilters();
   const {
     sortKey,
     isSortedDesc,
@@ -53,12 +55,18 @@ export const OfficesPage = () => {
         getSortOrders(isSortedDesc),
         page,
         perPage,
+        filters.statusFilter,
+        filters.specialtyFilter
       ]),
       params: {
         sortKey: isSortedDesc === undefined ? undefined : sortKey,
         sortDirection: getSortOrders(isSortedDesc),
         page,
         perPage,
+        filters: {
+          status: filters.statusFilter || undefined,
+          specialty: filters.specialtyFilter || undefined,
+        },
       },
     });
 
@@ -72,6 +80,16 @@ export const OfficesPage = () => {
     },
     [handleOpen],
   );
+
+  const handleClickStatus = (status: string) => () => {
+    handlePageChange(0);
+    set.setStatus(status);
+  };
+
+  const handleClickSpecialtyFilter = (specialty: string) => () => {
+    handlePageChange(0);
+    set.setSpecialty(specialty);
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -150,13 +168,11 @@ export const OfficesPage = () => {
                   </Typography.Text>
                 </Table.TCell>
                 <Table.TCell>
-                  <Typography.Text
-                    view="primary-small"
-                    tag="div"
-                    showSkeleton={showSkeleton}
-                  >
+                <Skeleton visible={showSkeleton}>
+                  <FilterCell onClick={handleClickSpecialtyFilter(specialty)} isActive={filters.specialtyFilter === specialty}>
                     {officeSpecialty[specialty]}
-                  </Typography.Text>
+                  </FilterCell>
+                  </Skeleton>
                 </Table.TCell>
                 <Table.TCell>
                   <Skeleton visible={showSkeleton}>
@@ -173,9 +189,13 @@ export const OfficesPage = () => {
                 </Table.TCell>
                 <Table.TCell>
                   <Skeleton visible={showSkeleton}>
-                    <Status size={24} color={statusColors[status]}>
+                    <AppStatus
+                      color={statusColors[status]}
+                      onClick={handleClickStatus(status)}
+                      isActive={status === filters.statusFilter}
+                    >
                       {status}
-                    </Status>
+                    </AppStatus>
                   </Skeleton>
                 </Table.TCell>
                 <Table.TCell>

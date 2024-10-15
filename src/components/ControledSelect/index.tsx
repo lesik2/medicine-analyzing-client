@@ -19,7 +19,7 @@ type Props<T extends FieldValues> = {
   methods: ReturnType<typeof useForm<T>>;
   options?: OptionShape[];
   custom?: 'office';
-  popoverPosition?: 'top'|'bottom'
+  popoverPosition?: 'top' | 'bottom';
 } & React.ComponentProps<typeof Select>;
 
 export const ControlledSelect = <T extends FieldValues>({

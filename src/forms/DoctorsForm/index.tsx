@@ -21,7 +21,7 @@ interface OfficeFormProps {
   submit: (data: CreateDoctor) => void;
 }
 
-type Inputs = { 
+type Inputs = {
   email: string;
   fullName: string;
   specialty: OptionShape;
@@ -33,38 +33,39 @@ export const DoctorsForm = ({
   id,
   handleClose,
   isLoading,
-  submit
+  submit,
 }: OfficeFormProps) => {
   const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
   const { specialty, typeOfShifts } = methods.getValues();
-  const { data,isLoading:isLoadingFreeOffices, isFetching:isFetchingFreeOffices } = useApiGet<OptionShape[]>({
-    ...getFreeOfficesConfig([
-        typeOfShifts?.key,
-        specialty?.key
-    ]),
-    options:{
-        enabled: Boolean(specialty) && Boolean(typeOfShifts)
+  const {
+    data,
+    isLoading: isLoadingFreeOffices,
+    isFetching: isFetchingFreeOffices,
+  } = useApiGet<OptionShape[]>({
+    ...getFreeOfficesConfig([typeOfShifts?.key, specialty?.key]),
+    options: {
+      enabled: Boolean(specialty) && Boolean(typeOfShifts),
     },
     params: {
-        typeOfShifts: typeOfShifts?.key,
-        specialty: specialty?.key,
+      typeOfShifts: typeOfShifts?.key,
+      specialty: specialty?.key,
     },
   });
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     const [surname, name, patronymic] = data.fullName.split(' ');
     submit({
-        name,
-        surname,
-        patronymic,
-        specialty:data.specialty.key,
-        typeOfShifts: data.typeOfShifts.key,
-        officeId: data.office.key,
-        email: data.email
-    })
+      name,
+      surname,
+      patronymic,
+      specialty: data.specialty.key,
+      typeOfShifts: data.typeOfShifts.key,
+      officeId: data.office.key,
+      email: data.email,
+    });
   };
 
-  const disabledOfficeSelect = isLoadingFreeOffices|| isFetchingFreeOffices
+  const disabledOfficeSelect = isLoadingFreeOffices || isFetchingFreeOffices;
 
   return (
     <FormModal
@@ -76,21 +77,21 @@ export const DoctorsForm = ({
     >
       <form>
         <div className={styles.contentWrapperFields}>
-        <ControlledInput
-              {...config.emailField}
-              clear
-              methods={methods}
-              size="m"
-              required={true}
-            />
-             <ControlledInput
-              name='fullName'
-              label='ФИО'
-              clear
-              methods={methods}
-              size="m"
-              required={true}
-            />
+          <ControlledInput
+            {...config.emailField}
+            clear
+            methods={methods}
+            size="m"
+            required={true}
+          />
+          <ControlledInput
+            name="fullName"
+            label="ФИО"
+            clear
+            methods={methods}
+            size="m"
+            required={true}
+          />
           <ControlledSelect
             {...config.specialtyField}
             clear
@@ -112,10 +113,10 @@ export const DoctorsForm = ({
             clear
             methods={methods}
             size="m"
-            popoverPosition='top'
+            popoverPosition="top"
             required={true}
             options={data || []}
-            custom='office'
+            custom="office"
             disabled={disabledOfficeSelect || !specialty || !typeOfShifts}
           />
         </div>

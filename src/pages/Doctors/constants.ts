@@ -13,7 +13,6 @@ export const TableHeaders = {
   officeNumber: 'officeNumber',
 };
 
-
 export const config = {
   notificationTitle: 'Успешно!',
   notificationMessage: 'Сотрудник успешно сохранён.',

@@ -13,7 +13,6 @@ export interface GetAllDoctorsResponse {
   items: DoctorResponse[];
 }
 
-
 export interface CreateDoctor {
   name: string;
   surname: string;
