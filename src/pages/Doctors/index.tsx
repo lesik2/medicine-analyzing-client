@@ -3,29 +3,26 @@ import { Typography } from '@alfalab/core-components/typography';
 import { PencilMIcon } from '@alfalab/icons-glyph/PencilMIcon';
 import { IconButton } from '@alfalab/core-components/icon-button';
 import { Skeleton } from '@alfalab/core-components/skeleton';
-import { useCallback, useEffect } from 'react';
-import { useSetAtom } from 'jotai';
+import { useCallback } from 'react';
 import styles from './index.module.css';
-import { TableHeadersName, TableHeaders, config } from './constants';
+import { TableHeadersName, TableHeaders } from './constants';
 import { useDoctorsFilters } from './useDoctorsFilters';
+import { useMutateDoctor } from './useMutateDoctor';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
-import { createDoctorConfig, getAllDoctorsConfig } from '@/api/doctors';
-import { CreateDoctor, GetAllDoctorsResponse } from '@/types/doctor';
+import { getAllDoctorsConfig } from '@/api/doctors';
+import { GetAllDoctorsResponse } from '@/types/doctor';
 import { doctorSpecialty } from '@/constants/doctorSpecialty';
 import { shiftsOfWork } from '@/constants/typeOfShifts';
 import { getSortOrders } from '@/utils/getSortOrders';
 import { useModal } from '@/hooks/useModal';
 import { DoctorsForm } from '@/forms/DoctorsForm';
-import { useApiSend } from '@/hooks/useApiSend';
-import { showNotificationAtom } from '@/atoms/notification';
-import { AppErrors } from '@/constants/errors';
 import { FilterCell } from '@/components/FilterCell';
 
 export const DoctorsPage = () => {
   const { handleClose, handleOpen, isOpen, id } = useModal();
-  const openNotification = useSetAtom(showNotificationAtom);
+
   const { filters, set } = useDoctorsFilters();
   const {
     sortKey,
@@ -39,12 +36,7 @@ export const DoctorsPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'surname' });
 
-  const { mutate, isSuccess, isPending, error } = useApiSend<
-    CreateDoctor,
-    CreateDoctor
-  >({
-    ...createDoctorConfig,
-  });
+ 
 
   const { data, isFetching, isLoading, refetch } =
     useApiGet<GetAllDoctorsResponse>({
@@ -68,6 +60,8 @@ export const DoctorsPage = () => {
       },
     });
 
+    const {mutate, isPending} = useMutateDoctor({id: id, refetch: refetch, handleClose: handleClose})
+
   const handleOpenModal = useCallback(
     (newId?: string) => () => {
       handleOpen(newId);
@@ -82,28 +76,6 @@ export const DoctorsPage = () => {
     handlePageChange(0);
     set.setTypeOfShifts(typeOfShifts)
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleClose();
-      openNotification({
-        title: config.notificationTitle,
-        message: config.notificationMessage,
-        badge: 'positive-checkmark',
-      });
-      refetch();
-    }
-  }, [isSuccess, refetch, handleClose, openNotification]);
-
-  useEffect(() => {
-    if (error) {
-      openNotification({
-        title: AppErrors.generalError,
-        message: error?.response?.data.message || '',
-        badge: 'negative-cross',
-      });
-    }
-  }, [error, openNotification]);
 
   const showSkeleton = isFetching || isLoading;
 
@@ -215,6 +187,7 @@ export const DoctorsPage = () => {
                         size={32}
                         icon={PencilMIcon}
                         transparentBg={true}
+                        onClick={handleOpenModal(id)}
                       />
                     </Skeleton>
                   </Table.TCell>

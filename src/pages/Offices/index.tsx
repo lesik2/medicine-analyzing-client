@@ -4,30 +4,28 @@ import { PencilMIcon } from '@alfalab/icons-glyph/PencilMIcon';
 import { IconButton } from '@alfalab/core-components/icon-button';
 import { Skeleton } from '@alfalab/core-components/skeleton';
 import { List } from '@alfalab/core-components/list';
-import { useCallback, useEffect } from 'react';
-import { useSetAtom } from 'jotai';
+import { useCallback } from 'react';
 import styles from './index.module.css';
-import { config, TableHeaders, TableHeadersName } from './constants';
+import { TableHeaders, TableHeadersName } from './constants';
 import { DoctorsShiftsItem } from './DoctorsShiftsItem';
 import { useOfficeFilters } from './useOfficeFilters';
+import { useMutateOffice } from './useMutateOffice';
 import { Heading } from '@/components/Heading';
 import { useTable } from '@/hooks/useTable';
 import { useApiGet } from '@/hooks/useApiGet';
-import { createOfficeConfig, getAllOfficesConfig } from '@/api/offices';
+import { getAllOfficesConfig } from '@/api/offices';
 import { getSortOrders } from '@/utils/getSortOrders';
-import { CreateOffice, GetAllOfficesResponse } from '@/types/office';
+import { GetAllOfficesResponse } from '@/types/office';
 import { officeSpecialty } from '@/constants/officeSpeciality';
 import { useModal } from '@/hooks/useModal';
 import { OfficesForm } from '@/forms/OfficesForm';
-import { useApiSend } from '@/hooks/useApiSend';
 import { statusColors } from '@/constants/statusColors';
-import { showNotificationAtom } from '@/atoms/notification';
 import { AppStatus } from '@/components/AppStatus';
 import { FilterCell } from '@/components/FilterCell';
 
 export const OfficesPage = () => {
   const { handleClose, handleOpen, isOpen, id } = useModal();
-  const openNotification = useSetAtom(showNotificationAtom);
+
   const { filters, set } = useOfficeFilters();
   const {
     sortKey,
@@ -41,12 +39,7 @@ export const OfficesPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'number' });
 
-  const { mutate, isSuccess, isPending } = useApiSend<
-    CreateOffice,
-    CreateOffice
-  >({
-    ...createOfficeConfig,
-  });
+  
 
   const { data, isFetching, isLoading, refetch } =
     useApiGet<GetAllOfficesResponse>({
@@ -69,7 +62,7 @@ export const OfficesPage = () => {
         },
       },
     });
-
+  const {mutate, isPending} = useMutateOffice({id: id, refetch: refetch, handleClose: handleClose})
   const showSkeleton = isFetching || isLoading;
 
   const pagesCount = data ? Math.ceil(data.total / perPage) : 0;
@@ -91,17 +84,7 @@ export const OfficesPage = () => {
     set.setSpecialty(specialty);
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      handleClose();
-      openNotification({
-        title: config.notificationTitle,
-        message: config.notificationMessage,
-        badge: 'positive-checkmark',
-      });
-      refetch();
-    }
-  }, [isSuccess, refetch, handleClose, openNotification]);
+  
 
   return (
     <div className={styles.pageWrapper}>
@@ -205,6 +188,7 @@ export const OfficesPage = () => {
                       size={32}
                       icon={PencilMIcon}
                       transparentBg={true}
+                      onClick={handleOpenModal(id)}
                     />
                   </Skeleton>
                 </Table.TCell>

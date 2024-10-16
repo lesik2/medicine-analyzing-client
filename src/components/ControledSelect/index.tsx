@@ -39,10 +39,16 @@ export const ControlledSelect = <T extends FieldValues>({
     trigger,
     getValues,
     register,
-    formState: { errors },
+    formState: { errors,defaultValues },
   } = methods;
 
-  const [selected, setSelected] = useState(getValues()[name]);
+  const [selected, setSelected] = useState(getValues()[name]);  
+
+  useEffect(()=>{
+    if(defaultValues){
+      setSelected(defaultValues[name]);
+    }
+  },[defaultValues,name])
 
   useEffect(() => {
     register(name, { required: !!required });

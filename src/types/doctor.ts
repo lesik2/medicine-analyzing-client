@@ -1,3 +1,4 @@
+import { OptionShape } from '@alfalab/core-components/select/shared';
 import { Specialty, TypesOfShifts } from '.';
 
 export interface DoctorResponse {
@@ -5,7 +6,7 @@ export interface DoctorResponse {
   fullName: string;
   specialty: Specialty;
   typeOfShifts: TypesOfShifts;
-  officeNumber: number;
+  officeNumber: number | null;
 }
 
 export interface GetAllDoctorsResponse {
@@ -13,7 +14,8 @@ export interface GetAllDoctorsResponse {
   items: DoctorResponse[];
 }
 
-export interface CreateDoctor {
+export interface UpdateDoctor {
+  id?: string;
   name: string;
   surname: string;
   patronymic?: string;
@@ -21,4 +23,14 @@ export interface CreateDoctor {
   typeOfShifts: string;
   email: string;
   officeId?: string;
+}
+
+
+export interface DoctorResponse{
+  id: string;
+  email: string;
+  fullName:string;
+  specialty: Specialty;
+  typeOfShifts: TypesOfShifts;
+  office: OptionShape;
 }

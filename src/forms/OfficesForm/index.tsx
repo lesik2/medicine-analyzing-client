@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { OptionShape } from '@alfalab/core-components/select/shared';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { config } from './constants';
 import styles from './index.module.css';
 import { schema } from './sсhema';
@@ -8,12 +9,14 @@ import { FormModal } from '@/components/FormModal';
 import { ControlledInput } from '@/components/ControledInput';
 import { ControlledSelect } from '@/components/ControledSelect';
 import { officeSpecialtyOptions } from '@/constants/officeSpeciality';
-import { CreateOffice } from '@/types/office';
+import { UpdateOffice, OfficeResponse } from '@/types/office';
+import { useApiGet } from '@/hooks/useApiGet';
+import { getOfficeConfig } from '@/api/offices';
 
 interface OfficeFormProps {
   handleClose: () => void;
   id: string | undefined;
-  submit: (data: CreateOffice) => void;
+  submit: (data: UpdateOffice) => void;
   isLoading: boolean;
 }
 
@@ -28,10 +31,28 @@ export const OfficesForm = ({
   submit,
   isLoading,
 }: OfficeFormProps) => {
-  const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
+  const {data} = useApiGet<OfficeResponse>({
+    ...getOfficeConfig(id,[id]),
+    options:{
+      enabled: Boolean(id)
+    }
+  })
+
+  const methods = useForm<Inputs>({ resolver: yupResolver(schema)});
+
+    useEffect(() => {
+      if (data) {
+        methods.reset({
+          specialty: officeSpecialtyOptions.find(option => option.key === data.specialty),
+          number: data.number.toString(),
+        });
+      }
+    }, [data, methods]);
+
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({
+      id: id,
       number: Number.parseInt(data.number),
       specialty: data.specialty.key,
     });

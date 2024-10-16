@@ -19,7 +19,10 @@ export interface GetAllOfficesResponse {
   items: OfficeResponse[];
 }
 
-export interface CreateOffice {
+
+
+export interface UpdateOffice {
+  id?: string;
   number: number;
   specialty: string;
 }
@@ -32,4 +35,11 @@ export interface FreeOffice {
     number: number;
     specialty: Specialty;
   };
+}
+
+
+export interface OfficeResponse{
+  id: string;
+  number: number;
+  specialty: Specialty;
 }

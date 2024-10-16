@@ -13,7 +13,18 @@ export const createOfficeConfig: ApiSendConfig = {
   method: 'post',
 };
 
+export const updateOfficeConfig: ApiSendConfig = {
+  url: `${BASE_URL}${PATH}`,
+  method: 'patch',
+};
+
 export const getFreeOfficesConfig = (keys: unknown[]): ApiGetConfig => ({
   keys: ['free-offices', ...keys],
   url: `${BASE_URL}${PATH}/free`,
 });
+
+
+export const getOfficeConfig = (id: string|undefined,keys: unknown[]):ApiGetConfig =>({
+  keys: ['office',...keys],
+  url: `${BASE_URL}${PATH}/${id}`,
+})

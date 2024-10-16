@@ -1,5 +1,5 @@
 export const config = {
   addBtnText: 'Добавить',
-  editBtnText: 'Редактировать',
+  editBtnText: 'Сохранить',
   cancelBtnText: 'Отменить',
 };

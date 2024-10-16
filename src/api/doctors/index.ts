@@ -12,3 +12,13 @@ export const createDoctorConfig: ApiSendConfig = {
   url: `${BASE_URL}${PATH}`,
   method: 'post',
 };
+
+export const updateDoctorConfig: ApiSendConfig = {
+  url: `${BASE_URL}${PATH}`,
+  method: 'patch',
+};
+
+export const getDoctorConfig = (id: string|undefined,keys: unknown[]):ApiGetConfig =>({
+  keys: ['doctor',...keys],
+  url: `${BASE_URL}${PATH}/${id}`,
+})

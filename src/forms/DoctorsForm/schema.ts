@@ -13,5 +13,5 @@ export const schema = yup.object({
     .email(AppErrors.incorrectEmail)
     .min(MIN_LENGTH, getMinLengthErrorMessage('E-mail', MIN_LENGTH))
     .required(AppErrors.requiredField),
-  office: yup.mixed<OptionShape>().required(AppErrors.requiredField),
+  office: yup.mixed<OptionShape>().nullable(),
 });
