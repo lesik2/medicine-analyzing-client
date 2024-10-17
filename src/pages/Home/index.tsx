@@ -1,5 +1,6 @@
 import { Typography } from '@alfalab/core-components/typography';
 import { Button } from '@alfalab/core-components/button';
+import youAreCoveredImg from '@assets/images/youAreCovered.webp'
 import styles from './index.module.css';
 import { config } from './constants';
 import { Routes } from '@/constants/routes';
@@ -52,6 +53,32 @@ export const HomePage = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      <section className={styles.thirdSection}>
+        <div className={styles.thirdSectionContent}>
+        <img className={styles.thirdSectionImg}  loading='lazy' alt="you are covered"  src={youAreCoveredImg}/>
+          <div className={styles.thirdSectionColored}>
+            <div className={styles.thirdSectionTextContent}>
+              <Typography.Title
+                  tag="h3"
+                  color="primary"
+                  view="medium"
+                >
+                  {config.thirdSection.title}
+                </Typography.Title>
+                <Typography.Text
+              className={styles.secondSectionMessage}
+              tag="p"
+              color="primary"
+              view="primary-medium"
+              weight="regular"
+            >
+               {config.thirdSection.message}
+            </Typography.Text>
+            </div>
+          </div>
+            
         </div>
       </section>
     </div>

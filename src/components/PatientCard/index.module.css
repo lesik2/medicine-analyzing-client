@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-light-base-bg-primary);
+    background-color: var(--color-light-base-bg-primary);
     border-radius: var(--border-radius-8);
     box-shadow: var(--shadow-xs-hard);
     height: 190px;
