@@ -1,0 +1,14 @@
+.statusButton {
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: var(--color-dark-base-bg-primary-inverted);
+  border: 6px;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+}

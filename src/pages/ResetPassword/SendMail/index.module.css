@@ -1,0 +1,26 @@
+.wrapper {
+  padding-top: var(--gap-72);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapperContent {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 456px;
+}
+
+.formWrapper {
+  width: 100%;
+}
+
+.title {
+  margin-bottom: var(--gap-40);
+}
+
+.sumbitButton {
+  margin: var(--gap-32) 0;
+}

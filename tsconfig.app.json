@@ -29,6 +29,10 @@
       "@pages/*": ["./src/pages/*"],
       "@utils/*": ["./src/utils/*"],
       "@routes/*": ["./src/routes/*"],
+      "@customTypes/*": ["./src/types/*"],
+      "@http/*": ["./src/http/*"],
+      "@atoms/*": ["./src/atoms/*"],
+      "@api/*": ["./src/api/*"],
     }
   },
   "include": ["src"],

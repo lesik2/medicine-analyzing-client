@@ -1,0 +1,24 @@
+.filterButton {
+  border: none;
+  outline: none;
+  background-color: var(--color-dark-base-bg-primary-inverted);
+  border-radius: 10px;
+  padding: var(--gap-4) var(--gap-12);
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-light-decorative-muted-blue);
+    transform: scale(1.05);
+  }
+}
+
+.filterButtonActive {
+  composes: filterButton;
+  background-color: var(--color-light-decorative-muted-blue);
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+}

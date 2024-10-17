@@ -1,0 +1,13 @@
+.wrapper {
+  height: calc(100% - var(--gap-72));
+  max-height: 100%;
+  padding-top: var(--gap-72);
+}
+
+.spinnerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

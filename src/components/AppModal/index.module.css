@@ -1,0 +1,17 @@
+.modalIcon {
+  color: var(--color-light-status-positive);
+}
+.modalIconWrapper {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
