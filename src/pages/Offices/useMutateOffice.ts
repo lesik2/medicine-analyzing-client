@@ -1,31 +1,39 @@
-import { useSetAtom } from "jotai";
-import { useEffect } from "react";
-import { config } from "./constants";
-import { createOfficeConfig, updateOfficeConfig } from "@/api/offices";
-import { AppErrors } from "@/constants/errors";
-import { useApiSend } from "@/hooks/useApiSend";
-import { UpdateOffice } from "@/types/office";
-import { showNotificationAtom } from "@/atoms/notification";
+import { useSetAtom } from 'jotai';
+import { useEffect } from 'react';
+import { config } from './constants';
+import { createOfficeConfig, updateOfficeConfig } from '@/api/offices';
+import { AppErrors } from '@/constants/errors';
+import { useApiSend } from '@/hooks/useApiSend';
+import { UpdateOffice } from '@/types/office';
+import { showNotificationAtom } from '@/atoms/notification';
 
-interface useMutateOfficeProps{
-    id: string|undefined;
-    refetch: ()=>void;
-    handleClose: ()=>void;
+interface useMutateOfficeProps {
+  id: string | undefined;
+  refetch: () => void;
+  handleClose: () => void;
 }
 
-export const useMutateOffice =({id,refetch, handleClose}:useMutateOfficeProps)=>{
-    const openNotification = useSetAtom(showNotificationAtom);
-    const { mutate: create, isSuccess: isSuccessCreate, isPending: isPendingCreate,error: errorCreate } = useApiSend<
-    UpdateOffice,
-    UpdateOffice
-  >({
+export const useMutateOffice = ({
+  id,
+  refetch,
+  handleClose,
+}: useMutateOfficeProps) => {
+  const openNotification = useSetAtom(showNotificationAtom);
+  const {
+    mutate: create,
+    isSuccess: isSuccessCreate,
+    isPending: isPendingCreate,
+    error: errorCreate,
+  } = useApiSend<UpdateOffice, UpdateOffice>({
     ...createOfficeConfig,
   });
 
-  const { mutate: update, isSuccess: isSuccessUpdate, isPending: isPendingUpdate,error: errorUpdate } = useApiSend<
-    UpdateOffice,
-    UpdateOffice
-  >({
+  const {
+    mutate: update,
+    isSuccess: isSuccessUpdate,
+    isPending: isPendingUpdate,
+    error: errorUpdate,
+  } = useApiSend<UpdateOffice, UpdateOffice>({
     ...updateOfficeConfig,
   });
 
@@ -39,25 +47,29 @@ export const useMutateOffice =({id,refetch, handleClose}:useMutateOfficeProps)=>
       });
       refetch();
     }
-  }, [isSuccessCreate,isSuccessUpdate, refetch, handleClose, openNotification]);
+  }, [
+    isSuccessCreate,
+    isSuccessUpdate,
+    refetch,
+    handleClose,
+    openNotification,
+  ]);
 
   useEffect(() => {
     if (errorCreate || errorUpdate) {
-
-    const error =errorCreate?.response?.data.message || errorUpdate?.response?.data.message
+      const error =
+        errorCreate?.response?.data.message ||
+        errorUpdate?.response?.data.message;
       openNotification({
         title: AppErrors.generalError,
         message: error || '',
         badge: 'negative-cross',
       });
     }
-  }, [errorCreate,errorUpdate, openNotification]);
+  }, [errorCreate, errorUpdate, openNotification]);
 
-
-  return{
-    mutate: id?update: create,
-    isPending: id? isPendingUpdate: isPendingCreate,
-  }
-}
-
-
+  return {
+    mutate: id ? update : create,
+    isPending: id ? isPendingUpdate : isPendingCreate,
+  };
+};

@@ -1,0 +1,23 @@
+.addCard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-light-base-bg-primary);
+    border-radius: var(--border-radius-8);
+    box-shadow: var(--shadow-xs-hard);
+    height: 190px;
+    padding: var(--gap-24);
+    border: 1px solid var(--action-button-disabled-icon-color);
+    max-width: 500px;
+    transition: all 0.2s;
+    &:hover{
+        cursor: pointer;
+        border: 1px solid var(--color-light-text-primary);
+        transform: scale(1.03);
+    }
+    
+}
+
+.cardTitle{
+    text-align: center;
+}

@@ -41,3 +41,13 @@ export enum StatusOfOffice {
   PARTIALLY_FILLED = 'Один сотрудник',
   EMPTY = 'Нет сотрудников',
 }
+
+export enum AgeCategory {
+  ADULT = 'взрослый',
+  CHILD = 'дети',
+}
+
+export enum Gender {
+  MALE = 'Мужской',
+  FEMALE = 'Женский',
+}

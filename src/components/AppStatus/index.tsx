@@ -9,7 +9,12 @@ interface AppStatusProps {
   isActive?: boolean;
 }
 
-const AppStatusInner = ({ color, onClick, children,isActive }: AppStatusProps) => {
+const AppStatusInner = ({
+  color,
+  onClick,
+  children,
+  isActive,
+}: AppStatusProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -27,7 +32,11 @@ const AppStatusInner = ({ color, onClick, children,isActive }: AppStatusProps) =
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Status view={isHovered ||  isActive? 'muted-alt' : 'muted'} size={24} color={color}>
+      <Status
+        view={isHovered || isActive ? 'muted-alt' : 'muted'}
+        size={24}
+        color={color}
+      >
         {children}
       </Status>
     </button>

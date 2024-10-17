@@ -25,11 +25,10 @@ export interface UpdateDoctor {
   officeId?: string;
 }
 
-
-export interface DoctorResponse{
+export interface DoctorResponse {
   id: string;
   email: string;
-  fullName:string;
+  fullName: string;
   specialty: Specialty;
   typeOfShifts: TypesOfShifts;
   office: OptionShape;

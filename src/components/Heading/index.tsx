@@ -5,7 +5,7 @@ import styles from './index.module.css';
 
 interface HeadingProps {
   title: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const addButtonText = 'Добавить';
@@ -16,10 +16,11 @@ const HeadingInner = ({ title, onClick }: HeadingProps) => {
       <Typography.Title tag="h3" color="primary" view="medium">
         {title}
       </Typography.Title>
-
-      <Button size={40} view="accent" onClick={onClick}>
-        {addButtonText}
-      </Button>
+      {onClick && (
+        <Button size={40} view="accent" onClick={onClick}>
+          {addButtonText}
+        </Button>
+      )}
     </div>
   );
 };

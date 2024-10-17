@@ -1,4 +1,4 @@
-import { OptionShape } from "@alfalab/core-components/select/typings";
+import { OptionShape } from '@alfalab/core-components/select/typings';
 
 export const doctorSpecialty = {
   'Общая практика': 'Врач общей практики',
@@ -14,7 +14,6 @@ export const doctorSpecialty = {
   Дерматология: 'Врач-дерматолог',
   Психиатрия: 'Врач-психиатр',
 } as const;
-
 
 export const doctorSpecialtyOptions: OptionShape[] = Object.entries(
   doctorSpecialty,

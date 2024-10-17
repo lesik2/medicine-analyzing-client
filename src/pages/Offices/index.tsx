@@ -39,8 +39,6 @@ export const OfficesPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'number' });
 
-  
-
   const { data, isFetching, isLoading, refetch } =
     useApiGet<GetAllOfficesResponse>({
       ...getAllOfficesConfig([
@@ -49,7 +47,7 @@ export const OfficesPage = () => {
         page,
         perPage,
         filters.statusFilter,
-        filters.specialtyFilter
+        filters.specialtyFilter,
       ]),
       params: {
         sortKey: isSortedDesc === undefined ? undefined : sortKey,
@@ -62,7 +60,11 @@ export const OfficesPage = () => {
         },
       },
     });
-  const {mutate, isPending} = useMutateOffice({id: id, refetch: refetch, handleClose: handleClose})
+  const { mutate, isPending } = useMutateOffice({
+    id: id,
+    refetch: refetch,
+    handleClose: handleClose,
+  });
   const showSkeleton = isFetching || isLoading;
 
   const pagesCount = data ? Math.ceil(data.total / perPage) : 0;
@@ -83,8 +85,6 @@ export const OfficesPage = () => {
     handlePageChange(0);
     set.setSpecialty(specialty);
   };
-
-  
 
   return (
     <div className={styles.pageWrapper}>
@@ -151,10 +151,13 @@ export const OfficesPage = () => {
                   </Typography.Text>
                 </Table.TCell>
                 <Table.TCell>
-                <Skeleton visible={showSkeleton}>
-                  <FilterCell onClick={handleClickSpecialtyFilter(specialty)} isActive={filters.specialtyFilter === specialty}>
-                    {officeSpecialty[specialty]}
-                  </FilterCell>
+                  <Skeleton visible={showSkeleton}>
+                    <FilterCell
+                      onClick={handleClickSpecialtyFilter(specialty)}
+                      isActive={filters.specialtyFilter === specialty}
+                    >
+                      {officeSpecialty[specialty]}
+                    </FilterCell>
                   </Skeleton>
                 </Table.TCell>
                 <Table.TCell>

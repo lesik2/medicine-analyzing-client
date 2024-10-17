@@ -31,30 +31,31 @@ export const OfficesForm = ({
   submit,
   isLoading,
 }: OfficeFormProps) => {
-  const {data} = useApiGet<OfficeResponse>({
-    ...getOfficeConfig(id,[id]),
-    options:{
-      enabled: Boolean(id)
-    }
-  })
+  const { data } = useApiGet<OfficeResponse>({
+    ...getOfficeConfig(id, [id]),
+    options: {
+      enabled: Boolean(id),
+    },
+  });
 
   const methods = useForm<Inputs>({ resolver: yupResolver(schema)});
 
-    useEffect(() => {
-      if (data) {
-        methods.reset({
-          specialty: officeSpecialtyOptions.find(option => option.key === data.specialty),
-          number: data.number.toString(),
-        });
-      }
-    }, [data, methods]);
-
+  useEffect(() => {
+    if (data) {
+      methods.reset({
+        specialty: officeSpecialtyOptions.find(
+          (option) => option.key === data.specialty,
+        ),
+        number: data.number.toString(),
+      });
+    }
+  }, [data, methods]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({
       id: id,
       number: Number.parseInt(data.number),
-      specialty: data.specialty.key,
+      specialty: data.specialty? data.specialty.key: '',
     });
   };
 

@@ -32,20 +32,20 @@ export const ControlledInput = <T extends FieldValues>({
     trigger,
     getValues,
     register,
-    formState: { errors,defaultValues },
+    formState: { errors, defaultValues },
   } = methods;
-
+  const defaultValue = defaultValues? defaultValues[name]:'';
   const [fieldValue, setFieldValue] = useState(getValues()[name]);
-  
+
   useEffect(() => {
     register(name, { required: !!required });
   }, [name, register, required]);
 
-  useEffect(()=>{
-    if(defaultValues){
-      setFieldValue(defaultValues[name]);
+  useEffect(() => {
+    if (defaultValue) {
+      setFieldValue(defaultValue);
     }
-  },[defaultValues,name])
+  }, [defaultValue, name]);
 
   useEffect(() => {
     setValue(name, fieldValue);

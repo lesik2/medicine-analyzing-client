@@ -39,23 +39,23 @@ export const ControlledSelect = <T extends FieldValues>({
     trigger,
     getValues,
     register,
-    formState: { errors,defaultValues },
+    formState: { errors, defaultValues },
   } = methods;
-
-  const [selected, setSelected] = useState(getValues()[name]);  
-
-  useEffect(()=>{
-    if(defaultValues){
-      setSelected(defaultValues[name]);
+  const defaultValue = defaultValues? defaultValues[name]:null;
+  const [selected, setSelected] = useState(getValues()[name]);
+  
+  useEffect(() => {
+    if (defaultValue) {
+      setSelected(defaultValue);
     }
-  },[defaultValues,name])
+  }, [defaultValue, name]);
 
   useEffect(() => {
     register(name, { required: !!required });
   }, [name, register, required]);
 
   useEffect(() => {
-    setValue(name, selected);
+    setValue(name, selected as PathValue<T, typeof name>);
     const currentValues = getValues(name);
 
     if (currentValues) trigger(name);
@@ -77,7 +77,7 @@ export const ControlledSelect = <T extends FieldValues>({
 
   const fieldConfig: React.ComponentProps<typeof Select> = {
     error: errors[name]?.message as string,
-    selected: selected,
+    selected: selected === undefined? null: selected,
     onChange: onChangeHandler,
     onBlur: onBlurHandler,
     label,

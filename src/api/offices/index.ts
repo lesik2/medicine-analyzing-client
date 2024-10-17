@@ -23,8 +23,10 @@ export const getFreeOfficesConfig = (keys: unknown[]): ApiGetConfig => ({
   url: `${BASE_URL}${PATH}/free`,
 });
 
-
-export const getOfficeConfig = (id: string|undefined,keys: unknown[]):ApiGetConfig =>({
-  keys: ['office',...keys],
+export const getOfficeConfig = (
+  id: string | undefined,
+  keys: unknown[],
+): ApiGetConfig => ({
+  keys: ['office', ...keys],
   url: `${BASE_URL}${PATH}/${id}`,
-})
+});

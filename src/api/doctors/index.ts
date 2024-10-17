@@ -18,7 +18,10 @@ export const updateDoctorConfig: ApiSendConfig = {
   method: 'patch',
 };
 
-export const getDoctorConfig = (id: string|undefined,keys: unknown[]):ApiGetConfig =>({
-  keys: ['doctor',...keys],
+export const getDoctorConfig = (
+  id: string | undefined,
+  keys: unknown[],
+): ApiGetConfig => ({
+  keys: ['doctor', ...keys],
   url: `${BASE_URL}${PATH}/${id}`,
-})
+});

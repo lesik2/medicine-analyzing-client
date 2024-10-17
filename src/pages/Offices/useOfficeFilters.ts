@@ -23,11 +23,11 @@ const filterReducer = (state: typeof initialState, action: PayloadType) => {
         statusFilter:
           action.payload === state.statusFilter ? '' : action.payload,
       };
-      case SetOfficeFiler.SET_SPECIALTY_FILTER:
+    case SetOfficeFiler.SET_SPECIALTY_FILTER:
       return {
         ...state,
         specialtyFilter:
-          action.payload === state.specialtyFilter? '' : action.payload,
+          action.payload === state.specialtyFilter ? '' : action.payload,
       };
     default:
       return state;
@@ -48,7 +48,7 @@ export const useOfficeFilters = () => {
   return {
     filters: {
       statusFilter: state.statusFilter,
-      specialtyFilter: state.specialtyFilter
+      specialtyFilter: state.specialtyFilter,
     },
     set: {
       setStatus,

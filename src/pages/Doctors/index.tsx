@@ -36,8 +36,6 @@ export const DoctorsPage = () => {
     defaultIsSortedDesc,
   } = useTable({ defaultIsSortedDesc: false, defaultSortKey: 'surname' });
 
- 
-
   const { data, isFetching, isLoading, refetch } =
     useApiGet<GetAllDoctorsResponse>({
       ...getAllDoctorsConfig([
@@ -46,7 +44,8 @@ export const DoctorsPage = () => {
         page,
         perPage,
         filters.typeOfShifts,
-        filters.specialtyFilter
+        filters.specialtyFilter,
+        filters.numberFilter,
       ]),
       params: {
         sortKey: isSortedDesc === undefined ? undefined : sortKey,
@@ -54,13 +53,18 @@ export const DoctorsPage = () => {
         page,
         perPage,
         filters: {
-          typeOfShifts: filters.typeOfShifts|| undefined,
+          typeOfShifts: filters.typeOfShifts || undefined,
           specialty: filters.specialtyFilter || undefined,
+          number: filters.numberFilter || undefined,
         },
       },
     });
 
-    const {mutate, isPending} = useMutateDoctor({id: id, refetch: refetch, handleClose: handleClose})
+  const { mutate, isPending } = useMutateDoctor({
+    id: id,
+    refetch: refetch,
+    handleClose: handleClose,
+  });
 
   const handleOpenModal = useCallback(
     (newId?: string) => () => {
@@ -74,7 +78,12 @@ export const DoctorsPage = () => {
   };
   const handleClickTypeOfShiftsFilter = (typeOfShifts: string) => () => {
     handlePageChange(0);
-    set.setTypeOfShifts(typeOfShifts)
+    set.setTypeOfShifts(typeOfShifts);
+  };
+  const handleClickNumberFilter = (number: number | null) => () => {
+    if(!number) return;
+    handlePageChange(0);
+    set.setNumber(number.toString());
   };
 
   const showSkeleton = isFetching || isLoading;
@@ -158,27 +167,34 @@ export const DoctorsPage = () => {
                     </Typography.Text>
                   </Table.TCell>
                   <Table.TCell>
-                  <Skeleton visible={showSkeleton}>
-                    <FilterCell onClick={handleClickSpecialtyFilter(specialty)} isActive={filters.specialtyFilter === specialty}>
-                      {doctorSpecialty[specialty]}
-                    </FilterCell>
+                    <Skeleton visible={showSkeleton}>
+                      <FilterCell
+                        onClick={handleClickSpecialtyFilter(specialty)}
+                        isActive={filters.specialtyFilter === specialty}
+                      >
+                        {doctorSpecialty[specialty]}
+                      </FilterCell>
                     </Skeleton>
                   </Table.TCell>
                   <Table.TCell>
-                  <Skeleton visible={showSkeleton}>
-                    <FilterCell onClick={handleClickTypeOfShiftsFilter(typeOfShifts)} isActive={filters.typeOfShifts === typeOfShifts}>
-                    {shiftsOfWork[typeOfShifts]}
-                    </FilterCell>
+                    <Skeleton visible={showSkeleton}>
+                      <FilterCell
+                        onClick={handleClickTypeOfShiftsFilter(typeOfShifts)}
+                        isActive={filters.typeOfShifts === typeOfShifts}
+                      >
+                        {shiftsOfWork[typeOfShifts]}
+                      </FilterCell>
                     </Skeleton>
                   </Table.TCell>
                   <Table.TCell>
-                    <Typography.Text
-                      view="primary-small"
-                      tag="div"
-                      showSkeleton={showSkeleton}
-                    >
-                      {officeNumber}
-                    </Typography.Text>
+                    <Skeleton visible={showSkeleton}>
+                      <FilterCell
+                        onClick={handleClickNumberFilter(officeNumber)}
+                        isActive={filters.numberFilter === officeNumber?.toString()}
+                      >
+                        {officeNumber}
+                      </FilterCell>
+                    </Skeleton>
                   </Table.TCell>
                   <Table.TCell>
                     <Skeleton visible={showSkeleton}>
@@ -208,4 +224,3 @@ export const DoctorsPage = () => {
     </div>
   );
 };
-

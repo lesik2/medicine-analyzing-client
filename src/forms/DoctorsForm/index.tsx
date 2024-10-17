@@ -28,7 +28,7 @@ type Inputs = {
   fullName: string;
   specialty: OptionShape;
   typeOfShifts: OptionShape;
-  office?: OptionShape|null;
+  office?: OptionShape | null;
 };
 
 export const DoctorsForm = ({
@@ -37,13 +37,13 @@ export const DoctorsForm = ({
   isLoading,
   submit,
 }: OfficeFormProps) => {
-  const {data: initialData} = useApiGet<DoctorResponse>({
-    ...getDoctorConfig(id,[id]),
-    options:{
-      enabled: Boolean(id)
-    }
-  })
-  const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
+  const { data: initialData,isFetching,isLoading:isLoadingInitialData } = useApiGet<DoctorResponse>({
+    ...getDoctorConfig(id, [id]),
+    options: {
+      enabled: Boolean(id),
+    },
+  });
+  const methods = useForm<Inputs>({ resolver: yupResolver(schema)});
   const { specialty, typeOfShifts } = methods.getValues();
   const {
     data,
@@ -59,19 +59,22 @@ export const DoctorsForm = ({
       specialty: specialty?.key,
     },
   });
-
   useEffect(() => {
-    if (initialData) {
+    const loading = isFetching || isLoadingInitialData
+    if (initialData && !loading) {
       methods.reset({
         email: initialData.email,
         fullName: initialData.fullName,
-        specialty: doctorSpecialtyOptions.find(option => option.key === initialData.specialty),
-        typeOfShifts: shiftsOfWorkOptions.find((option)=>option.key === initialData.typeOfShifts),
-        office: initialData.office
+        specialty: doctorSpecialtyOptions.find(
+          (option) => option.key === initialData.specialty,
+        ),
+        typeOfShifts: shiftsOfWorkOptions.find(
+          (option) => option.key === initialData.typeOfShifts,
+        ),
+        office: initialData.office,
       });
     }
-  }, [initialData, methods]);
-
+  }, [initialData, methods,isFetching,isLoadingInitialData]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     const [surname, name, patronymic] = data.fullName.split(' ');
@@ -82,7 +85,7 @@ export const DoctorsForm = ({
       patronymic,
       specialty: data.specialty.key,
       typeOfShifts: data.typeOfShifts.key,
-      officeId: data.office?data.office.key: undefined,
+      officeId: data.office ? data.office.key : undefined,
       email: data.email,
     });
   };

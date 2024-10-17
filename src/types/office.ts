@@ -19,8 +19,6 @@ export interface GetAllOfficesResponse {
   items: OfficeResponse[];
 }
 
-
-
 export interface UpdateOffice {
   id?: string;
   number: number;
@@ -37,8 +35,7 @@ export interface FreeOffice {
   };
 }
 
-
-export interface OfficeResponse{
+export interface OfficeResponse {
   id: string;
   number: number;
   specialty: Specialty;

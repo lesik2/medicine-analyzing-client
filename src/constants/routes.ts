@@ -9,4 +9,5 @@ export enum Routes {
   NEW_PASSWORD = '/recall/replace',
   DOCTORS = '/doctors',
   OFFICES = '/offices',
+  PATIENTS = '/patients',
 }
