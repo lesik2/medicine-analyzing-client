@@ -31,17 +31,19 @@ export const OfficesForm = ({
   submit,
   isLoading,
 }: OfficeFormProps) => {
-  const { data } = useApiGet<OfficeResponse>({
+  const { data, isFetching,
+    isLoading: isLoadingInitialData, } = useApiGet<OfficeResponse>({
     ...getOfficeConfig(id, [id]),
     options: {
       enabled: Boolean(id),
     },
   });
 
-  const methods = useForm<Inputs>({ resolver: yupResolver(schema)});
+  const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
 
   useEffect(() => {
-    if (data) {
+    const loading = isFetching || isLoadingInitialData;
+    if (data && !loading) {
       methods.reset({
         specialty: officeSpecialtyOptions.find(
           (option) => option.key === data.specialty,
@@ -49,13 +51,13 @@ export const OfficesForm = ({
         number: data.number.toString(),
       });
     }
-  }, [data, methods]);
+  }, [data, methods,isFetching,isLoadingInitialData]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({
       id: id,
       number: Number.parseInt(data.number),
-      specialty: data.specialty? data.specialty.key: '',
+      specialty: data.specialty ? data.specialty.key : '',
     });
   };
 

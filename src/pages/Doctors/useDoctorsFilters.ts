@@ -31,7 +31,7 @@ const filterReducer = (state: typeof initialState, action: PayloadType) => {
         specialtyFilter:
           action.payload === state.specialtyFilter ? '' : action.payload,
       };
-      case SetDoctorsFiler.SET_NUMBER_FILTER:
+    case SetDoctorsFiler.SET_NUMBER_FILTER:
       return {
         ...state,
         numberFilter:
@@ -75,7 +75,7 @@ export const useDoctorsFilters = () => {
     set: {
       setTypeOfShifts,
       setSpecialty,
-      setNumber
+      setNumber,
     },
   };
 };

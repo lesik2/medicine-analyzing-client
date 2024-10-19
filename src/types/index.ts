@@ -5,7 +5,7 @@ export interface ServerResponseError {
 }
 
 export interface ApiSendConfig {
-  method: 'post' | 'patch';
+  method: 'post' | 'patch' | 'delete';
   url: string;
   invalidateKey?: string[];
 }

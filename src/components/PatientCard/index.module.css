@@ -1,23 +1,103 @@
-.addCard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-light-base-bg-primary);
-    border-radius: var(--border-radius-8);
-    box-shadow: var(--shadow-xs-hard);
-    height: 190px;
-    padding: var(--gap-24);
-    border: 1px solid var(--action-button-disabled-icon-color);
-    max-width: 500px;
-    transition: all 0.2s;
-    &:hover{
-        cursor: pointer;
-        border: 1px solid var(--color-light-text-primary);
-        transform: scale(1.03);
-    }
-    
+.addCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-light-base-bg-primary);
+  border-radius: var(--border-radius-8);
+  box-shadow: var(--shadow-xs-hard);
+  height: 190px;
+  padding: var(--gap-24);
+  border: 1px solid var(--action-button-disabled-icon-color);
+  max-width: 500px;
+  transition: all 0.2s;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid var(--color-light-text-primary);
+    transform: scale(1.03);
+  }
 }
 
-.cardTitle{
-    text-align: center;
+.cardTitle {
+  text-align: center;
+}
+
+.editCard {
+  display: flex;
+  background-color: var(--color-light-base-bg-primary);
+  border-radius: var(--border-radius-8);
+  box-shadow: var(--shadow-xs);
+  height: 190px;
+  max-width: 500px;
+  border: 1px solid var(--action-button-secondary-hover-color);
+}
+
+
+.editCardContentActive {
+  display: flex;
+  padding: var(--gap-24);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  border-right: 1px solid var(--action-button-secondary-hover-color);
+}
+
+.editCardContent{
+    position: relative;
+    composes: editCardContentActive ;
+    &:hover{
+        cursor: pointer;
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            background-color: #0cc44d;
+            height: 190px;
+        }
+    }
+}
+
+.editCardTitle {
+  margin-bottom: var(--gap-8);
+}
+
+.editCardMenu{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+
+.editCardMenuPrimaryItemActive {
+  width: 63px;
+  height: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0cc44d;
+  border-radius: 0 var(--border-radius-8) 0 0;
+}
+
+.editCardMenuPrimaryItem{
+     composes: editCardMenuPrimaryItemActive;
+    background-color: var(--color-light-base-bg-primary);
+}
+
+.editCardMenuItem {
+  composes: editCardMenuPrimaryItemActive;
+  background-color: var(--color-light-base-bg-primary);
+  border: none;
+  color: var(--color-light-text-secondary);
+  border-top: 1px solid var(--action-button-secondary-hover-color);
+  border-radius: 0 0 var(--border-radius-8) 0;
+  transition: color 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-light-text-primary);
+  }
 }

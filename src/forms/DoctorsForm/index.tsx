@@ -37,13 +37,17 @@ export const DoctorsForm = ({
   isLoading,
   submit,
 }: OfficeFormProps) => {
-  const { data: initialData,isFetching,isLoading:isLoadingInitialData } = useApiGet<DoctorResponse>({
+  const {
+    data: initialData,
+    isFetching,
+    isLoading: isLoadingInitialData,
+  } = useApiGet<DoctorResponse>({
     ...getDoctorConfig(id, [id]),
     options: {
       enabled: Boolean(id),
     },
   });
-  const methods = useForm<Inputs>({ resolver: yupResolver(schema)});
+  const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
   const { specialty, typeOfShifts } = methods.getValues();
   const {
     data,
@@ -60,7 +64,7 @@ export const DoctorsForm = ({
     },
   });
   useEffect(() => {
-    const loading = isFetching || isLoadingInitialData
+    const loading = isFetching || isLoadingInitialData;
     if (initialData && !loading) {
       methods.reset({
         email: initialData.email,
@@ -74,7 +78,7 @@ export const DoctorsForm = ({
         office: initialData.office,
       });
     }
-  }, [initialData, methods,isFetching,isLoadingInitialData]);
+  }, [initialData, methods, isFetching, isLoadingInitialData]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     const [surname, name, patronymic] = data.fullName.split(' ');

@@ -81,7 +81,7 @@ export const DoctorsPage = () => {
     set.setTypeOfShifts(typeOfShifts);
   };
   const handleClickNumberFilter = (number: number | null) => () => {
-    if(!number) return;
+    if (!number) return;
     handlePageChange(0);
     set.setNumber(number.toString());
   };
@@ -190,7 +190,9 @@ export const DoctorsPage = () => {
                     <Skeleton visible={showSkeleton}>
                       <FilterCell
                         onClick={handleClickNumberFilter(officeNumber)}
-                        isActive={filters.numberFilter === officeNumber?.toString()}
+                        isActive={
+                          filters.numberFilter === officeNumber?.toString()
+                        }
                       >
                         {officeNumber}
                       </FilterCell>

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Typography } from '@alfalab/core-components/typography';
 import { Button } from '@alfalab/core-components/button';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { schema } from './schema';
 import styles from './index.module.css';
@@ -15,6 +15,7 @@ import { useModal } from '@/hooks/useModal';
 import { AppNotification } from '@/components/AppNotification';
 import { AppModal } from '@/components/AppModal';
 import { AppErrors } from '@/constants/errors';
+import { Routes } from '@/constants/routes';
 
 type Inputs = {
   newPassword: string;
@@ -29,6 +30,7 @@ interface ResetPassword {
 
 export const NewPasswordPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const token = params.get('token') || undefined;
   const userId = params.get('id') || undefined;
@@ -53,6 +55,10 @@ export const NewPasswordPage = () => {
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
+
+  const handlePrimaryButtonClick = ()=>{
+    navigate(Routes.LOGIN)
+  }
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     mutate({ token, userId, newPassword: data.newPassword });
@@ -124,7 +130,7 @@ export const NewPasswordPage = () => {
         >
           {error?.response?.data.message}
         </AppNotification>
-        <AppModal isOpen={isOpen} handleClose={handleClose} {...config.modal} />
+        <AppModal isOpen={isOpen} handleClose={handleClose} {...config.modal} handlePrimaryClick={handlePrimaryButtonClick} />
       </div>
     </div>
   );

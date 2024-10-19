@@ -34,7 +34,7 @@ export const ControlledInput = <T extends FieldValues>({
     register,
     formState: { errors, defaultValues },
   } = methods;
-  const defaultValue = defaultValues? defaultValues[name]:'';
+  const defaultValue = defaultValues ? defaultValues[name] : '';
   const [fieldValue, setFieldValue] = useState(getValues()[name]);
 
   useEffect(() => {

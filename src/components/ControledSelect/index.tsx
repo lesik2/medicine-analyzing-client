@@ -41,9 +41,9 @@ export const ControlledSelect = <T extends FieldValues>({
     register,
     formState: { errors, defaultValues },
   } = methods;
-  const defaultValue = defaultValues? defaultValues[name]:null;
+  const defaultValue = defaultValues ? defaultValues[name] : null;
   const [selected, setSelected] = useState(getValues()[name]);
-  
+
   useEffect(() => {
     if (defaultValue) {
       setSelected(defaultValue);
@@ -77,7 +77,7 @@ export const ControlledSelect = <T extends FieldValues>({
 
   const fieldConfig: React.ComponentProps<typeof Select> = {
     error: errors[name]?.message as string,
-    selected: selected === undefined? null: selected,
+    selected: selected === undefined ? null : selected,
     onChange: onChangeHandler,
     onBlur: onBlurHandler,
     label,

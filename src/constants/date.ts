@@ -1,0 +1,1 @@
+export const YYYY_MM_DD_MOMENT_DATE_FORMAT = 'YYYY-MM-DD';
