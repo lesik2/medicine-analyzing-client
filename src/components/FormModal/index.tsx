@@ -33,6 +33,11 @@ export const FormModalInner = ({
           gap={24}
           layout="start"
           primary={
+            <Button size={48} view="secondary" onClick={handleClose}>
+              {config.cancelBtnText}
+            </Button>
+          }
+          secondary={
             <Button
               size={48}
               view="primary"
@@ -41,11 +46,6 @@ export const FormModalInner = ({
               disabled={primaryDisabled}
             >
               {id ? config.editBtnText : config.addBtnText}
-            </Button>
-          }
-          secondary={
-            <Button size={48} view="secondary" onClick={handleClose}>
-              {config.cancelBtnText}
             </Button>
           }
         />

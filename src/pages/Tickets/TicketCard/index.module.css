@@ -1,0 +1,30 @@
+.ticketCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-light-base-bg-primary);
+  width: 345px;
+  box-shadow: var(--shadow-xs);
+  border-radius: var(--border-radius-4);
+  padding: var(--gap-24) var(--gap-16);
+  border: 1px solid var(--action-button-disabled-icon-color);
+  outline: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #fa9313;
+    height: 100%;
+  }
+}
+
+.ticketCardDisabled {
+  composes: ticketCard;
+  opacity: 0.6;
+}

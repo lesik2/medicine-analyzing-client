@@ -33,3 +33,10 @@ export interface DoctorResponse {
   typeOfShifts: TypesOfShifts;
   office: OptionShape;
 }
+
+export interface DoctorResponseBySpecialty {
+  id: string;
+  fullName: string;
+  officeNumber: number;
+  specialty: Specialty;
+}

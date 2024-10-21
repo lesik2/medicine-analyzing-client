@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-24);
+}
+
+.doctorCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-light-base-bg-primary);
+  width: 220px;
+  box-shadow: var(--shadow-xs);
+  border-radius: var(--border-radius-4);
+  padding: var(--gap-24) var(--gap-16);
+  border: 1px solid var(--action-button-disabled-icon-color);
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: #0cc44d;
+      height: 100%;
+    }
+  }
+}
+
+.doctorCardActive {
+  composes: doctorCard;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #0cc44d;
+    height: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -19,8 +19,8 @@ export const schema = yup.object({
       (value) => {
         if (!value) return true;
         return Regex.lettersEnglishAndCyrillic.test(value);
-      }
+      },
     ),
   gender: yup.string().required(AppErrors.requiredField),
-  dateOfBirth: yup.date().required(AppErrors.requiredField)
+  dateOfBirth: yup.date().required(AppErrors.requiredField),
 });

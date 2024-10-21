@@ -56,9 +56,9 @@ export const NewPasswordPage = () => {
     setShowNotification(false);
   };
 
-  const handlePrimaryButtonClick = ()=>{
-    navigate(Routes.LOGIN)
-  }
+  const handlePrimaryButtonClick = () => {
+    navigate(Routes.LOGIN);
+  };
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     mutate({ token, userId, newPassword: data.newPassword });
@@ -130,7 +130,12 @@ export const NewPasswordPage = () => {
         >
           {error?.response?.data.message}
         </AppNotification>
-        <AppModal isOpen={isOpen} handleClose={handleClose} {...config.modal} handlePrimaryClick={handlePrimaryButtonClick} />
+        <AppModal
+          isOpen={isOpen}
+          handleClose={handleClose}
+          {...config.modal}
+          handlePrimaryClick={handlePrimaryButtonClick}
+        />
       </div>
     </div>
   );

@@ -35,9 +35,10 @@ export const PatientsForm = ({
   handleClose,
   submit,
   isLoading,
-  ageCategory
+  ageCategory,
 }: OfficeFormProps) => {
-  const { data,
+  const {
+    data,
     isFetching,
     isLoading: isLoadingInitialData,
   } = useApiGet<PatientResponse>({
@@ -46,7 +47,6 @@ export const PatientsForm = ({
       enabled: Boolean(id),
     },
   });
-
 
   const methods = useForm<Inputs>({ resolver: yupResolver(schema) });
 
@@ -61,18 +61,20 @@ export const PatientsForm = ({
         gender: data.gender,
       });
     }
-  }, [data, methods,isFetching,isLoadingInitialData]);
+  }, [data, methods, isFetching, isLoadingInitialData]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({
-      id:id,
+      id: id,
       name: data.name,
       surname: data.surname,
       patronymic: data.patronymic,
       gender: data.gender,
       ageCategory: ageCategory,
-      dateOfBirth: moment(data.dateOfBirth).format(YYYY_MM_DD_MOMENT_DATE_FORMAT)
-    })
+      dateOfBirth: moment(data.dateOfBirth).format(
+        YYYY_MM_DD_MOMENT_DATE_FORMAT,
+      ),
+    });
   };
 
   return (
@@ -112,7 +114,13 @@ export const PatientsForm = ({
             {...config.genderField}
             radioGroups={radioGroups}
           />
-          <ControlledDateInput size='m' methods={methods} {...config.dateField} required clear />
+          <ControlledDateInput
+            size="m"
+            methods={methods}
+            {...config.dateField}
+            required
+            clear
+          />
         </div>
       </form>
     </FormModal>

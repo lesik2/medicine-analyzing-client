@@ -5,20 +5,25 @@ import { AppErrors } from '@/constants/errors';
 import { useApiSend } from '@/hooks/useApiSend';
 import { showNotificationAtom } from '@/atoms/notification';
 import { UpdateActiveStatus, UpdatePatient } from '@/types/patient';
-import { changeActivePatientConfig, createPatientConfig, deletePatientConfig, updatePatientConfig } from '@/api/patients';
+import {
+  changeActivePatientConfig,
+  createPatientConfig,
+  deletePatientConfig,
+  updatePatientConfig,
+} from '@/api/patients';
 
 interface useMutateOfficeProps {
   id: string | undefined;
   refetch: () => void;
   handleClose: () => void;
-  handleCloseDelete: ()=>void;
+  handleCloseDelete: () => void;
 }
 
 export const useMutatePatients = ({
   id,
   refetch,
   handleClose,
-  handleCloseDelete
+  handleCloseDelete,
 }: useMutateOfficeProps) => {
   const openNotification = useSetAtom(showNotificationAtom);
   const {
@@ -35,7 +40,7 @@ export const useMutatePatients = ({
     isSuccess: isSuccessDelete,
     isPending: isPendingDelete,
     error: errorDelete,
-  } = useApiSend<string|undefined>({
+  } = useApiSend<string | undefined>({
     ...deletePatientConfig,
   });
 
@@ -48,19 +53,16 @@ export const useMutatePatients = ({
     ...updatePatientConfig,
   });
 
+  const { mutate: changeActiveStatus, isSuccess: isSuccessActiveStatus } =
+    useApiSend<UpdateActiveStatus, UpdateActiveStatus>({
+      ...changeActivePatientConfig,
+    });
 
-  const {
-    mutate: changeActiveStatus,
-    isSuccess: isSuccessActiveStatus,
-  } = useApiSend<UpdateActiveStatus, UpdateActiveStatus>({
-    ...changeActivePatientConfig,
-  });
-
-  useEffect(()=>{
-    if(isSuccessActiveStatus){
-      refetch()
+  useEffect(() => {
+    if (isSuccessActiveStatus) {
+      refetch();
     }
-  },[isSuccessActiveStatus,refetch])
+  }, [isSuccessActiveStatus, refetch]);
 
   useEffect(() => {
     if (isSuccessCreate || isSuccessUpdate) {
@@ -90,25 +92,19 @@ export const useMutatePatients = ({
       });
       refetch();
     }
-  }, [
-    isSuccessDelete,
-    refetch,
-    openNotification,
-    handleCloseDelete,
-  ]);
+  }, [isSuccessDelete, refetch, openNotification, handleCloseDelete]);
 
   useEffect(() => {
     if (errorDelete) {
-      handleCloseDelete()
-      const error =
-        errorDelete?.response?.data.message
+      handleCloseDelete();
+      const error = errorDelete?.response?.data.message;
       openNotification({
         title: AppErrors.generalError,
         message: error || '',
         badge: 'negative-cross',
       });
     }
-  }, [errorDelete,openNotification,handleCloseDelete]);
+  }, [errorDelete, openNotification, handleCloseDelete]);
 
   useEffect(() => {
     if (errorCreate || errorUpdate) {

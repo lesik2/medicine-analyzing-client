@@ -17,7 +17,7 @@ interface UseApiSendProps<T, R = unknown> {
   options?: UseMutationOptions<R, AxiosError<ServerResponseError>, T>;
 }
 
-export const useApiSend = <T, R=unknown>({
+export const useApiSend = <T, R = unknown>({
   url,
   method,
   success,
@@ -33,8 +33,7 @@ export const useApiSend = <T, R=unknown>({
 
   return useMutation<R, AxiosError<ServerResponseError>, T>({
     mutationFn: async (data: T) => {
-
-      if(method === 'delete'){
+      if (method === 'delete') {
         const response = await axiosConfig[method]<R>(`${url}/${data}`);
         return response.data;
       }

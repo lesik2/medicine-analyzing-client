@@ -31,7 +31,6 @@
   border: 1px solid var(--action-button-secondary-hover-color);
 }
 
-
 .editCardContentActive {
   display: flex;
   padding: var(--gap-24);
@@ -42,35 +41,34 @@
   border-right: 1px solid var(--action-button-secondary-hover-color);
 }
 
-.editCardContent{
-    position: relative;
-    composes: editCardContentActive ;
-    &:hover{
-        cursor: pointer;
-        &::before{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            background-color: #0cc44d;
-            height: 190px;
-        }
+.editCardContent {
+  position: relative;
+  composes: editCardContentActive;
+  &:hover {
+    cursor: pointer;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: #0cc44d;
+      height: 100%;
     }
+  }
 }
 
 .editCardTitle {
   margin-bottom: var(--gap-8);
 }
 
-.editCardMenu{
+.editCardMenu {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-
-
 
 .editCardMenuPrimaryItemActive {
   width: 63px;
@@ -82,9 +80,9 @@
   border-radius: 0 var(--border-radius-8) 0 0;
 }
 
-.editCardMenuPrimaryItem{
-     composes: editCardMenuPrimaryItemActive;
-    background-color: var(--color-light-base-bg-primary);
+.editCardMenuPrimaryItem {
+  composes: editCardMenuPrimaryItemActive;
+  background-color: var(--color-light-base-bg-primary);
 }
 
 .editCardMenuItem {

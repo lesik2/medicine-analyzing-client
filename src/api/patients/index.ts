@@ -3,11 +3,15 @@ import { ApiGetConfig, ApiSendConfig } from '@/types';
 
 const PATH = '/patients';
 
+export const getAllPatientsPatternConfig: ApiGetConfig = {
+  keys: ['patients-pattern'],
+  url: `${BASE_URL}${PATH}/pattern`,
+};
+
 export const getAllPatientsConfig: ApiGetConfig = {
   keys: ['patients'],
   url: `${BASE_URL}${PATH}`,
 };
-
 
 export const createPatientConfig: ApiSendConfig = {
   url: `${BASE_URL}${PATH}`,

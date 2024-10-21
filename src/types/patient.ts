@@ -35,8 +35,13 @@ export interface PatientResponse {
   ageCategory: AgeCategory;
 }
 
-
-
-export interface UpdateActiveStatus{
+export interface UpdateActiveStatus {
   id: string;
+}
+
+export interface PatientCard {
+  id: string;
+  fullName: string;
+  dateOfBirth: string;
+  active: boolean;
 }

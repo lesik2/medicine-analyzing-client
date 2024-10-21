@@ -16,12 +16,12 @@ export const config = {
   },
   genderField: {
     name: 'gender',
-    label: 'Пол'
+    label: 'Пол',
   },
   dateField: {
-    name:'dateOfBirth',
-    label: 'Дата рождения'
-  }
+    name: 'dateOfBirth',
+    label: 'Дата рождения',
+  },
 } as const;
 
 export const radioGroups = [

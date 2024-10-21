@@ -33,16 +33,15 @@ export const patientsSkeletons = [
   },
 ];
 
-
 export const config = {
-    notificationTitle: 'Успешно!',
-    notificationMessage: 'Пациент успешно сохранён.',
-    notificationMessageDelete: 'Пациент успешно удален.',
-    modal: {
-      headerTitle: 'Удаление пациента',
-      message: 'Вы уверены, что хотите удалить пациента? Это действие необратимо.',
-      primaryBtn: 'Подтавердить',
-      secondaryBtn: 'Отменить',
-    },
+  notificationTitle: 'Успешно!',
+  notificationMessage: 'Пациент успешно сохранён.',
+  notificationMessageDelete: 'Пациент успешно удален.',
+  modal: {
+    headerTitle: 'Удаление пациента',
+    message:
+      'Вы уверены, что хотите удалить пациента? Это действие необратимо.',
+    primaryBtn: 'Подтавердить',
+    secondaryBtn: 'Отменить',
+  },
 };
-  

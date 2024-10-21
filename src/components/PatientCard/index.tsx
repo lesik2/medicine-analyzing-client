@@ -10,14 +10,19 @@ interface PatientCard {
   ageCategory: AgeCategory;
   patient: Patient | null;
   onClick?: () => void;
-  handleEdit?:()=>void;
-  handleDelete?: ()=>void;
-  changeActiveStatus?: (data: UpdateActiveStatus)=>void
+  handleEdit?: () => void;
+  handleDelete?: () => void;
+  changeActiveStatus?: (data: UpdateActiveStatus) => void;
 }
 
-const PatientCardInner = ({ ageCategory, patient, onClick,changeActiveStatus,handleEdit,handleDelete }: PatientCard) => {
-
-
+const PatientCardInner = ({
+  ageCategory,
+  patient,
+  onClick,
+  changeActiveStatus,
+  handleEdit,
+  handleDelete,
+}: PatientCard) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -29,17 +34,16 @@ const PatientCardInner = ({ ageCategory, patient, onClick,changeActiveStatus,han
   };
 
   const handleEditCard = () => {
-    if(handleEdit){
-      handleEdit()
+    if (handleEdit) {
+      handleEdit();
     }
   };
 
   const handleDeleteCard = () => {
-    if(handleDelete){
-      handleDelete()
+    if (handleDelete) {
+      handleDelete();
     }
   };
-
 
   if (!patient) {
     return (
@@ -61,18 +65,29 @@ const PatientCardInner = ({ ageCategory, patient, onClick,changeActiveStatus,han
       </button>
     );
   }
-  const { id,fullName, dateOfBirth, ageCategory: ageCategoryPatient,active } = patient;
+  const {
+    id,
+    fullName,
+    dateOfBirth,
+    ageCategory: ageCategoryPatient,
+    active,
+  } = patient;
 
-  const handleChangeActive = (id: string)=>()=>{
-    if(active) return;
-    if(changeActiveStatus){
-      changeActiveStatus({id: id})
+  const handleChangeActive = (id: string) => () => {
+    if (active) return;
+    if (changeActiveStatus) {
+      changeActiveStatus({ id: id });
     }
-  }
+  };
 
   return (
     <div className={styles.editCard}>
-      <div  className={active? styles.editCardContentActive:styles.editCardContent} onClick={handleChangeActive(id)} >
+      <div
+        className={
+          active ? styles.editCardContentActive : styles.editCardContent
+        }
+        onClick={handleChangeActive(id)}
+      >
         <Typography.Title
           className={styles.editCardTitle}
           view="xsmall"
@@ -90,8 +105,14 @@ const PatientCardInner = ({ ageCategory, patient, onClick,changeActiveStatus,han
         </Typography.Text>
       </div>
       <div className={styles.editCardMenu}>
-        <div className={active? styles.editCardMenuPrimaryItemActive: styles.editCardMenuPrimaryItem}>
-          <CheckmarkMIcon color={active? 'white': 'rgba(4, 4, 19, 0.55)'} />
+        <div
+          className={
+            active
+              ? styles.editCardMenuPrimaryItemActive
+              : styles.editCardMenuPrimaryItem
+          }
+        >
+          <CheckmarkMIcon color={active ? 'white' : 'rgba(4, 4, 19, 0.55)'} />
         </div>
         {buttonsItems.map(({ id, Icon }) => (
           <button

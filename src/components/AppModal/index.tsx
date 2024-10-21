@@ -9,7 +9,7 @@ import styles from './index.module.css';
 export interface AppModalProps {
   isOpen: boolean;
   handleClose: () => void;
-  handlePrimaryClick: ()=>void;
+  handlePrimaryClick: () => void;
   headerTitle?: string;
   title?: string;
   message?: string;
@@ -35,35 +35,46 @@ export const AppModal = ({
     <ModalDesktop open={isOpen} onClose={handleClose}>
       <Modal.Header>
         {headerTitle && headerTitle}
-        {showIcon && 
-                <SuperEllipse className={styles.modalIconWrapper} border={true}>
-                <CheckmarkMediumMIcon className={styles.modalIcon} />
-              </SuperEllipse>
-        }
-
+        {showIcon && (
+          <SuperEllipse className={styles.modalIconWrapper} border={true}>
+            <CheckmarkMediumMIcon className={styles.modalIcon} />
+          </SuperEllipse>
+        )}
       </Modal.Header>
       <Modal.Content className={styles.modalContent}>
-        {title &&<Typography.Title tag="h3" color="primary" view="small">
-          {title}
-        </Typography.Title>}
-        {message && 
-        <Typography.Text className={styles.modalMessage} tag="p" color="primary" view="primary-large">
-          {message}
-        </Typography.Text>
-}    
+        {title && (
+          <Typography.Title tag="h3" color="primary" view="small">
+            {title}
+          </Typography.Title>
+        )}
+        {message && (
+          <Typography.Text
+            className={styles.modalMessage}
+            tag="p"
+            color="primary"
+            view="primary-large"
+          >
+            {message}
+          </Typography.Text>
+        )}
       </Modal.Content>
       <Modal.Footer>
         <Modal.Controls
           gap={24}
           layout="center"
           primary={
-            <Button size={48} onClick={handlePrimaryClick} view="primary" loading={isPending}>
-              {primaryBtn}
+            <Button size={48} view="secondary" onClick={handleClose}>
+              {secondaryBtn}
             </Button>
           }
           secondary={
-            <Button size={48} view="secondary" onClick={handleClose}>
-              {secondaryBtn}
+            <Button
+              size={48}
+              onClick={handlePrimaryClick}
+              view="primary"
+              loading={isPending}
+            >
+              {primaryBtn}
             </Button>
           }
         />

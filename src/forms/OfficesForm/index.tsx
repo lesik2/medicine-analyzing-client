@@ -31,8 +31,11 @@ export const OfficesForm = ({
   submit,
   isLoading,
 }: OfficeFormProps) => {
-  const { data, isFetching,
-    isLoading: isLoadingInitialData, } = useApiGet<OfficeResponse>({
+  const {
+    data,
+    isFetching,
+    isLoading: isLoadingInitialData,
+  } = useApiGet<OfficeResponse>({
     ...getOfficeConfig(id, [id]),
     options: {
       enabled: Boolean(id),
@@ -51,7 +54,7 @@ export const OfficesForm = ({
         number: data.number.toString(),
       });
     }
-  }, [data, methods,isFetching,isLoadingInitialData]);
+  }, [data, methods, isFetching, isLoadingInitialData]);
 
   const handleSubmit: SubmitHandler<Inputs> = async (data) => {
     submit({

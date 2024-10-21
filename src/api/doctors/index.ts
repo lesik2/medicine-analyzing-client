@@ -25,3 +25,11 @@ export const getDoctorConfig = (
   keys: ['doctor', ...keys],
   url: `${BASE_URL}${PATH}/${id}`,
 });
+
+export const getDoctorsBySpecialtyConfig = (
+  specialty: string | undefined,
+  keys: unknown[],
+): ApiGetConfig => ({
+  keys: ['doctor-specialty', ...keys],
+  url: `${BASE_URL}${PATH}/specialty/${specialty}`,
+});

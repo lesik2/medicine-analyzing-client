@@ -1,0 +1,8 @@
+.stepText {
+  font-size: 15px;
+  margin: 0;
+}
+
+.stepContent {
+  margin-top: var(--gap-24);
+}
