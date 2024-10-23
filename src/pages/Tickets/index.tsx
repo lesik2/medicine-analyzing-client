@@ -15,13 +15,12 @@ import { AppSpinner } from '@/components/AppSpinner';
 export const TicketsPage = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
 
-
   const { data, refetch, isFetching, isLoading } =
     useApiGet<AppointmentResponseByPatient>({
       ...getAppointmentsByPatientConfig([]),
     });
 
-    const { mutate, isPending } = useMutateAppointment({refetch});
+  const { mutate, isPending } = useMutateAppointment({ refetch });
 
   const handleOrderTicket = useCallback(() => {
     handleOpen();

@@ -10,4 +10,5 @@ export enum Routes {
   DOCTORS = '/doctors',
   OFFICES = '/offices',
   PATIENTS = '/patients',
+  STATISTICS = '/statistics',
 }

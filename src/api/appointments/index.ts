@@ -19,3 +19,8 @@ export const getAppointmentsByPatientConfig = (
   keys: ['appointments-patients', ...keys],
   url: `${BASE_URL}${PATH}/patients`,
 });
+
+export const getWorkloadConfig = (keys: unknown[]): ApiGetConfig => ({
+  keys: ['workload', ...keys],
+  url: `${BASE_URL}${PATH}/workload`,
+});

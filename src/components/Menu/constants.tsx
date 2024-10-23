@@ -3,6 +3,7 @@ import { ReceiptLineMIcon } from '@alfalab/icons-glyph/ReceiptLineMIcon';
 import { DoorArrowRightBoldMIcon } from '@alfalab/icons-glyph/DoorArrowRightBoldMIcon';
 import { ArmchairMIcon } from '@alfalab/icons-glyph/ArmchairMIcon';
 import { UsersGroupMIcon } from '@alfalab/icons-glyph/UsersGroupMIcon';
+import { CategoryMobileMIcon } from '@alfalab/icons-glyph/CategoryMobileMIcon';
 import { ReactNode } from 'react';
 import { Routes } from '@/constants/routes';
 import { Roles } from '@/types/roles';
@@ -41,20 +42,27 @@ export const menuItemsConfig: MenuItem[] = [
   },
   {
     id: 4,
+    name: 'Статистика',
+    iconElement: <CategoryMobileMIcon />,
+    routePath: Routes.STATISTICS,
+    roles: [Roles.MANAGER],
+  },
+  {
+    id: 5,
     name: 'Персонал',
     iconElement: <UsersGroupMIcon />,
     routePath: Routes.DOCTORS,
     roles: [Roles.MANAGER],
   },
   {
-    id: 5,
+    id: 6,
     name: 'Кабинеты',
     iconElement: <ArmchairMIcon />,
     routePath: Routes.OFFICES,
     roles: [Roles.MANAGER],
   },
   {
-    id: 6,
+    id: 7,
     name: logoutItemName,
     iconElement: <DoorArrowRightBoldMIcon />,
     routePath: Routes.LOGIN,

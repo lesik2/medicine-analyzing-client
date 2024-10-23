@@ -38,6 +38,9 @@ const OfficesPage = lazy(async () => ({
 const PatientsPage = lazy(async () => ({
   default: (await import('@/pages/Patients')).PatientsPage,
 }));
+const StatisticsPage = lazy(async () => ({
+  default: (await import('@/pages/Statistics')).StatisticsPage,
+}));
 const NotFoundPage = lazy(async () => ({
   default: (await import('@/pages/Not-found')).NotFound,
 }));
@@ -63,6 +66,7 @@ export const AppRoutes = () => {
           <Route element={<PrivateRoute available={[Roles.MANAGER]} />}>
             <Route path={Routes.DOCTORS} element={<DoctorsPage />} />
             <Route path={Routes.OFFICES} element={<OfficesPage />} />
+            <Route path={Routes.STATISTICS} element={<StatisticsPage />} />
           </Route>
           <Route element={<PrivateRoute available={[Roles.USER]} />}>
             <Route path={Routes.PATIENTS} element={<PatientsPage />} />

@@ -7,11 +7,13 @@ import { useApiSend } from '@/hooks/useApiSend';
 import { Appointment } from '@/types/appointment';
 import { AppErrors } from '@/constants/errors';
 
-interface useMutateAppointmentProps{
-  refetch: ()=>void;
+interface useMutateAppointmentProps {
+  refetch: () => void;
 }
 
-export const useMutateAppointment = ({refetch}:useMutateAppointmentProps) => {
+export const useMutateAppointment = ({
+  refetch,
+}: useMutateAppointmentProps) => {
   const openNotification = useSetAtom(showNotificationAtom);
 
   const { mutate, isSuccess, isPending, error } = useApiSend<Appointment>({
@@ -25,9 +27,9 @@ export const useMutateAppointment = ({refetch}:useMutateAppointmentProps) => {
         message: config.notificationMessage,
         badge: 'positive-checkmark',
       });
-      refetch()
+      refetch();
     }
-  }, [isSuccess, openNotification,refetch]);
+  }, [isSuccess, openNotification, refetch]);
 
   useEffect(() => {
     if (error) {

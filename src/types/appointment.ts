@@ -19,3 +19,14 @@ export interface AppointmentResponseByPatient {
   upcoming: AppointmentResponse[];
   history: AppointmentResponse[];
 }
+
+export interface WorkloadItem {
+  label: string;
+  value: number;
+}
+
+export interface WorkloadResponse {
+  labels: string[];
+  items: WorkloadItem[];
+  total: number;
+}

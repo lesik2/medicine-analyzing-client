@@ -1,0 +1,6 @@
+.controlsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-16);
+}
