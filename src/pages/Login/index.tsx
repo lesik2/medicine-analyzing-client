@@ -19,6 +19,7 @@ import { loginConfig } from '@/api/auth';
 import { AuthUser } from '@/types/auth';
 import { authUserAtom } from '@/atoms/auth';
 import { StorageKeys } from '@/constants/localStorage';
+import { Roles } from '@/types/roles';
 
 type Inputs = {
   email: string;
@@ -69,7 +70,7 @@ export const LoginPage = () => {
       setAuthUser(response);
       localStorage.setItem(StorageKeys.accessToken, response.accessToken);
       localStorage.setItem(StorageKeys.refreshToken, response.refreshToken);
-      navigate(Routes.PROFILE);
+      navigate(response.role === Roles.MANAGER? Routes.STATISTICS : Routes.TICKETS);
     }
   }, [response, setAuthUser, navigate]);
 

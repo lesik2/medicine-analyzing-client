@@ -24,7 +24,7 @@ export const menuItemsConfig: MenuItem[] = [
     name: 'Профиль',
     iconElement: <NavigationProfileMIcon />,
     routePath: Routes.PROFILE,
-    roles: [Roles.USER],
+    roles: [Roles.DOCTOR],
   },
   {
     id: 1,
