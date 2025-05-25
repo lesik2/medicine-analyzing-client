@@ -24,3 +24,10 @@ export const getWorkloadConfig = (keys: unknown[]): ApiGetConfig => ({
   keys: ['workload', ...keys],
   url: `${BASE_URL}${PATH}/workload`,
 });
+
+
+export const cancelAppointmentConfig: ApiSendConfig = {
+  url: `${BASE_URL}${PATH}`,
+  method: 'delete',
+};
+

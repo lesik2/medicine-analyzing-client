@@ -77,7 +77,7 @@ export const TicketsPage = () => {
                 !showLoader &&
                 data.upcoming.length > 0 &&
                 data.upcoming.map((ticket) => (
-                  <TicketCard key={ticket.id} {...ticket} />
+                  <TicketCard key={ticket.id} {...ticket} showCancelBtn/>
                 ))}
               {!data?.upcoming.length && !showLoader && (
                 <Typography.Text

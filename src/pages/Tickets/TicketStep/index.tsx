@@ -19,6 +19,8 @@ export const TicketStep = () => {
         doctorFullName={orderTicket.doctor?.fullName || ''}
         patientFullName={orderTicket.patient?.fullName || ''}
         officeNumber={orderTicket.doctor?.officeNumber}
+        id={'new'}
+        status='active'
       />
     </>
   );

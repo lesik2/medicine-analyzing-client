@@ -13,6 +13,7 @@ export interface AppointmentResponse {
   specialty: Specialty;
   doctorFullName: string;
   officeNumber: number | undefined;
+  status: string;
 }
 
 export interface AppointmentResponseByPatient {

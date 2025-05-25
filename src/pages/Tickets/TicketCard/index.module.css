@@ -28,3 +28,16 @@
   composes: ticketCard;
   opacity: 0.6;
 }
+
+
+.cancelBtn{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.cancelStatus{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
